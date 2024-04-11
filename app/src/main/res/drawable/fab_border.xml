@@ -1,0 +1,8 @@
+<!-- res/drawable/fab_border.xml -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+    <solid android:color="@android:color/transparent" />
+    <stroke
+        android:width="2dp"
+    android:color="@color/red_pink" />
+</shape>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#F0F1F1</color>
+    <color name="black80">#1B1D29</color> //raisin black
+    <color name="red_pink">#FE2D66</color> //Folly
+    <color name="blue">#0F81EE</color>
+    <color name="lavender">#8692f7</color>
+    <color name="blue_light">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+</resources>
