@@ -18,6 +18,9 @@ import hcmute.com.blankcil.config.RetrofitClient;
 import hcmute.com.blankcil.constants.APIService;
 import hcmute.com.blankcil.model.AuthenticateRequest;
 import hcmute.com.blankcil.model.AuthenticateResponse;
+import hcmute.com.blankcil.model.ProfileResponse;
+import hcmute.com.blankcil.model.UserModel;
+import hcmute.com.blankcil.utils.SharedPrefManager;
 import retrofit2.Callback;
 import retrofit2.Response;
 
@@ -37,6 +40,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         RetrofitClient retrofitClient = RetrofitClient.getInstance();
         apiService = retrofitClient.getApi();
+
+        checkLoginStatus();
     }
 
     @Override
@@ -56,11 +61,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     if (response.body() != null) {
                         String accessToken = response.body().getAccess_token();
                         String refreshToken = response.body().getRefresh_token();
+                        SharedPrefManager.getInstance(LoginActivity.this).saveTokens(accessToken, refreshToken);
+                        getUserProfile(accessToken);
                     }
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    startActivity(intent);
-                    finish();
                     Toast.makeText(LoginActivity.this, response.body().getAccess_token(), Toast.LENGTH_SHORT).show();
                 }
                 else {
@@ -73,5 +76,42 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 Log.d("Login", "Login failed" + t.getMessage());
             }
         });
+    }
+
+    private void getUserProfile(String accessToken) {
+        apiService.getProfile("Bearer " + accessToken).enqueue(new Callback<ProfileResponse>() {
+            @Override
+            public void onResponse(retrofit2.Call<ProfileResponse> call, Response<ProfileResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    UserModel userModel = response.body().getBody();
+                    // Lưu UserModel vào SharedPreferences
+                    SharedPrefManager.getInstance(LoginActivity.this).saveUserModel(userModel);
+
+                    // Chuyển đến MainActivity
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
+                    finish();
+                } else {
+                    Toast.makeText(LoginActivity.this, "Failed to get profile", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(retrofit2.Call<ProfileResponse> call, Throwable t) {
+                Log.d("GetProfile", "Failed: " + t.getMessage());
+            }
+        });
+    }
+
+    private void checkLoginStatus() {
+        String accessToken = SharedPrefManager.getInstance(this).getAccessToken();
+        if (accessToken != null) {
+            // Token is present, you can also validate the token here if needed
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+            finish();
+        }
     }
 }

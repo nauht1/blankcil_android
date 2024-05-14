@@ -12,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
+        app:fabAlignmentMode="center"
         app:background="@color/white" />
 
     <RelativeLayout
@@ -34,7 +35,9 @@
             app:itemIconTint="@color/color_navigation"
             app:itemTextColor="@color/color_navigation"
             app:labelVisibilityMode="unlabeled"
-            app:menu="@menu/menu_navigation" />
+            app:menu="@menu/menu_navigation" >
+
+        </com.google.android.material.bottomnavigation.BottomNavigationView>
 
     </RelativeLayout>
 
@@ -46,10 +49,11 @@
         android:contentDescription="new podcast"
         android:src="@drawable/ic_baseline_add_24"
         app:backgroundTint="@color/black80"
-        app:borderWidth="2dp"
-        app:layout_anchor="@+id/bottomAppBar"
-        app:layout_anchorGravity="bottom"
-        app:maxImageSize="28dp"
+        app:borderWidth="1dp"
+        app:fabCustomSize="45dp"
+        app:layout_anchor="@+id/bottomNav"
+        app:layout_anchorGravity="center"
+        app:maxImageSize="26dp"
         app:tint="@color/blue" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
