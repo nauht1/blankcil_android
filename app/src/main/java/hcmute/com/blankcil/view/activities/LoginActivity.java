@@ -31,17 +31,18 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        RetrofitClient retrofitClient = RetrofitClient.getInstance();
+        apiService = retrofitClient.getApi();
+        checkLoginStatus();
+
         setContentView(R.layout.activity_login);
 
         email = findViewById(R.id.edtLoginEmail);
         password = findViewById(R.id.edtLoginPassword);
         loginBtn = findViewById(R.id.loginBtn);
+
         loginBtn.setOnClickListener(this);
-
-        RetrofitClient retrofitClient = RetrofitClient.getInstance();
-        apiService = retrofitClient.getApi();
-
-        checkLoginStatus();
     }
 
     @Override
@@ -105,13 +106,46 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void checkLoginStatus() {
-        String accessToken = SharedPrefManager.getInstance(this).getAccessToken();
-        if (accessToken != null) {
-            // Token is present, you can also validate the token here if needed
-            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
-            finish();
+//        String accessToken = SharedPrefManager.getInstance(this).getAccessToken();
+//        if (accessToken != null) {
+//            // Token is present, you can also validate the token here if needed
+//            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+//            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//            startActivity(intent);
+//            finish();
+//        }
+        String refreshToken = SharedPrefManager.getInstance(this).getRefreshToken();
+        if (refreshToken != null) {
+            // Make a network call to refresh the token
+            refreshAccessToken(refreshToken);
         }
+    }
+
+    private void refreshAccessToken(String refreshToken) {
+        apiService.refreshToken("Bearer " + refreshToken).enqueue(new Callback<AuthenticateResponse>() {
+            @Override
+            public void onResponse(retrofit2.Call<AuthenticateResponse> call, Response<AuthenticateResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    String newAccessToken = response.body().getAccess_token();
+                    String newRefreshToken = response.body().getRefresh_token();
+
+                    // Save the new tokens
+                    SharedPrefManager.getInstance(LoginActivity.this).saveTokens(newAccessToken, newRefreshToken);
+
+                    // Get user profile using new access token
+                    getUserProfile(newAccessToken);
+
+                    Toast.makeText(LoginActivity.this, "Token refreshed", Toast.LENGTH_SHORT).show();
+                } else {
+                    // If refresh token fails, direct to login screen
+                    Toast.makeText(LoginActivity.this, "Failed to refresh token", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(retrofit2.Call<AuthenticateResponse> call, Throwable t) {
+                Log.d("RefreshToken", "Failed: " + t.getMessage());
+            }
+        });
     }
 }

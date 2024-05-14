@@ -18,6 +18,7 @@ import hcmute.com.blankcil.config.RetrofitClient;
 import hcmute.com.blankcil.constants.APIService;
 import hcmute.com.blankcil.model.PodcastModel;
 import hcmute.com.blankcil.model.PodcastResponse;
+import hcmute.com.blankcil.utils.SharedPrefManager;
 import hcmute.com.blankcil.view.adapter.PodcastAdapter;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -46,18 +47,19 @@ public class HomeFragment extends Fragment {
 
         RetrofitClient retrofitClient = RetrofitClient.getInstance();
         apiService = retrofitClient.getApi();
-        fetchPodcasts(currentPage);
+        String accessToken = SharedPrefManager.getInstance(getContext()).getAccessToken();
+        fetchPodcasts(currentPage, accessToken);
 
         viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
 
-                // Kiểm tra xem người dùng cuộn đến cuối danh sách hay không
+                // Kiểm tra xem người dùng cuộn đến gần cuối danh sách chưa
                 if (position == podcastAdapter.getItemCount() - 1) {
                     if (currentPage < totalPage) {
                         currentPage++;
-                        fetchPodcasts(currentPage); // Gọi API để lấy danh sách podcast mới
+                        fetchPodcasts(currentPage, accessToken); // Gọi API để lấy danh sách podcast mới
                     }
                 }
             }
@@ -66,8 +68,8 @@ public class HomeFragment extends Fragment {
         return view;
     }
 
-    private void fetchPodcasts(int page) {
-        apiService.getPodcasts(page).enqueue(new Callback<PodcastResponse>() {
+    private void fetchPodcasts(int page, String accessToken) {
+        apiService.getPodcasts("Bearer " + accessToken, page, true).enqueue(new Callback<PodcastResponse>() {
             @Override
             public void onResponse(Call<PodcastResponse> call, Response<PodcastResponse> response) {
                 if (response.body() != null && response.body().getBody() != null) {
@@ -75,9 +77,6 @@ public class HomeFragment extends Fragment {
                     totalPage = response.body().getBody().getTotalPage();
                     podcastList.addAll(newPodcasts);
                     podcastAdapter.notifyDataSetChanged();
-//                    podcastAdapter = new PodcastAdapter(getContext(), podcastList);
-//                    viewPager2.setAdapter(podcastAdapter);
-//                    viewPager2.setOrientation(ViewPager2.ORIENTATION_VERTICAL);
                 } else {
                     Log.d("fetchPodcasts", "Response body or body content is null");
                 }

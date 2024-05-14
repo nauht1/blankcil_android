@@ -6,11 +6,16 @@ import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.MediaController;
+import android.widget.TextView;
 import android.widget.VideoView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -35,7 +40,10 @@ public class PodcastAdapter extends RecyclerView.Adapter<PodcastAdapter.PodcastV
     @Override
     public void onBindViewHolder(@NonNull PodcastAdapter.PodcastViewHolder holder, int position) {
         PodcastModel podcast = podcastList.get(position);
-//        holder.textVideoDescription.setText(video1Model.getDesc());
+        holder.textTitle.setText(podcast.getTitle());
+        holder.textContent.setText(podcast.getContent());
+        holder.likeCount.setText(String.valueOf(podcast.getNumberOfLikes()));
+        holder.commentCount.setText(String.valueOf(podcast.getNumberOfComments()));
         holder.videoView.setVideoURI(Uri.parse(podcast.getAudio_url()));
         holder.videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             @Override
@@ -52,8 +60,6 @@ public class PodcastAdapter extends RecyclerView.Adapter<PodcastAdapter.PodcastV
                 }
             }
         });
-        // Set thông tin video cho VideoView
-//        holder.setVideo(podcast.getAudio_url());
         holder.videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
@@ -62,6 +68,13 @@ public class PodcastAdapter extends RecyclerView.Adapter<PodcastAdapter.PodcastV
                 mp.start();
             }
         });
+
+        // Kiểm tra giá trị hasLiked và cập nhật hình ảnh của nút like
+        if (podcast.isHasLiked()) {
+            holder.imLike.setImageResource(R.drawable.ic_liked);
+        } else {
+            holder.imLike.setImageResource(R.drawable.ic_like);
+        }
     }
 
     @Override
@@ -75,10 +88,20 @@ public class PodcastAdapter extends RecyclerView.Adapter<PodcastAdapter.PodcastV
     public static class PodcastViewHolder extends RecyclerView.ViewHolder {
 
         private VideoView videoView;
+        private TextView textTitle, textContent;
+        private TextView likeCount, commentCount;
+        private ImageButton imLike, imComment, imShare;
 
         public PodcastViewHolder(@NonNull View itemView) {
             super(itemView);
             videoView = itemView.findViewById(R.id.videoView);
+            textTitle = itemView.findViewById(R.id.videoTitle);
+            textContent = itemView.findViewById(R.id.videoContent);
+            likeCount = itemView.findViewById(R.id.likeCount);
+            commentCount = itemView.findViewById(R.id.commentCount);
+            imLike = itemView.findViewById(R.id.btnLike);
+            imComment = itemView.findViewById(R.id.btnComment);
+            imShare = itemView.findViewById(R.id.btnShareLink);
         }
     }
 

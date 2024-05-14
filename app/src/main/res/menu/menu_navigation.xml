@@ -3,11 +3,11 @@
     <item
         android:id="@+id/homeTab"
         android:title="Home"
-        android:icon="@drawable/ic_home_24"/>
+        android:icon="@drawable/ic_home"/>
     <item
         android:id="@+id/friendTab"
         android:title="Friends"
-        android:icon="@drawable/ic_friends_24"/>
+        android:icon="@drawable/ic_friends"/>
     <item
         android:id="@+id/postTab"
         android:title=""
@@ -15,9 +15,9 @@
     <item
         android:id="@+id/chatTab"
         android:title="Chat"
-        android:icon="@drawable/ic_chat_24"/>
+        android:icon="@drawable/ic_chat"/>
     <item
         android:id="@+id/userTab"
         android:title="User"
-        android:icon="@drawable/ic_user_24"/>
+        android:icon="@drawable/ic_user"/>
 </menu>
