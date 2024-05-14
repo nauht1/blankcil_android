@@ -1,24 +1,18 @@
-package hcmute.com.blankcil;
+package hcmute.com.blankcil.view.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.widget.ImageView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
-import hcmute.com.blankcil.adapter.ViewPagerAdapter;
+import hcmute.com.blankcil.R;
+import hcmute.com.blankcil.view.adapter.ViewPagerAdapter;
 import hcmute.com.blankcil.databinding.ActivityMainBinding;
-import hcmute.com.blankcil.view.HomeFragment;
 
 public class MainActivity extends AppCompatActivity {
     private ViewPager2 mViewPager;

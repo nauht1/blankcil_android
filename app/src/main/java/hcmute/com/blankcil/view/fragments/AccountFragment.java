@@ -1,4 +1,4 @@
-package hcmute.com.blankcil.view;
+package hcmute.com.blankcil.view.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

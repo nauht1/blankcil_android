@@ -1,15 +1,14 @@
-package hcmute.com.blankcil.adapter;
+package hcmute.com.blankcil.view.adapter;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import hcmute.com.blankcil.view.AccountFragment;
-import hcmute.com.blankcil.view.ChatFragment;
-import hcmute.com.blankcil.view.FriendsFragment;
-import hcmute.com.blankcil.view.HomeFragment;
+import hcmute.com.blankcil.view.fragments.AccountFragment;
+import hcmute.com.blankcil.view.fragments.ChatFragment;
+import hcmute.com.blankcil.view.fragments.FriendsFragment;
+import hcmute.com.blankcil.view.fragments.HomeFragment;
 
 public class ViewPagerAdapter extends FragmentStateAdapter {
     public ViewPagerAdapter(@NonNull FragmentActivity fragmentActivity) {

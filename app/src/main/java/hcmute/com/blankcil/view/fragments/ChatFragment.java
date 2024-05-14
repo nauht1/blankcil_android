@@ -1,4 +1,4 @@
-package hcmute.com.blankcil.view;
+package hcmute.com.blankcil.view.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,12 +9,12 @@ import androidx.fragment.app.Fragment;
 
 import hcmute.com.blankcil.R;
 
-public class FriendsFragment extends Fragment {
+public class ChatFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_friends, container, false);
+        return inflater.inflate(R.layout.fragment_chat, container, false);
     }
 }
