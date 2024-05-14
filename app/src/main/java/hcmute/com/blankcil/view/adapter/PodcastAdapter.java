@@ -80,21 +80,11 @@ public class PodcastAdapter extends RecyclerView.Adapter<PodcastAdapter.PodcastV
             super(itemView);
             videoView = itemView.findViewById(R.id.videoView);
         }
+    }
 
-//        public void setVideo(String videoUrl) {
-//            // Tạo một Uri từ URL video
-//            Uri videoUri = Uri.parse(videoUrl);
-//
-//            // Sử dụng Runnable để đặt đường dẫn của video cho VideoView trong luồng nền
-//            videoView.post(new Runnable() {
-//                @Override
-//                public void run() {
-//                    // Đặt đường dẫn của video cho VideoView
-//                    videoView.setVideoURI(videoUri);
-//                    // Bắt đầu phát video
-//                    videoView.start();
-//                }
-//            });
-//        }
+    public void addPodcasts(List<PodcastModel> newPodcasts) {
+        int startPosition = podcastList.size();
+        podcastList.addAll(newPodcasts);
+        notifyItemRangeInserted(startPosition, newPodcasts.size());
     }
 }

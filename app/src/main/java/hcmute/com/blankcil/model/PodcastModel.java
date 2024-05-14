@@ -2,6 +2,7 @@ package hcmute.com.blankcil.model;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 public class PodcastModel implements Serializable {
     private int id;
@@ -10,11 +11,11 @@ public class PodcastModel implements Serializable {
     private String audio_url;
     private String content;
     private boolean hasLiked;
-    private LocalDateTime createDay;
+    private Date createDay;
     private int numberOfComments;
     private int numberOfLikes;
 
-    public PodcastModel(int id, String title, String thumbnail_url, String audio_url, String content, boolean hasLiked, LocalDateTime createDay, int numberOfComments, int numberOfLikes) {
+    public PodcastModel(int id, String title, String thumbnail_url, String audio_url, String content, boolean hasLiked, Date createDay, int numberOfComments, int numberOfLikes) {
         this.id = id;
         this.title = title;
         this.thumbnail_url = thumbnail_url;
@@ -74,11 +75,11 @@ public class PodcastModel implements Serializable {
         this.hasLiked = hasLiked;
     }
 
-    public LocalDateTime getCreateDay() {
+    public Date getCreateDay() {
         return createDay;
     }
 
-    public void setCreateDay(LocalDateTime createDay) {
+    public void setCreateDay(Date createDay) {
         this.createDay = createDay;
     }
 
@@ -96,5 +97,20 @@ public class PodcastModel implements Serializable {
 
     public void setNumberOfLikes(int numberOfLikes) {
         this.numberOfLikes = numberOfLikes;
+    }
+
+    @Override
+    public String toString() {
+        return "PodcastModel{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", thumbnail_url='" + thumbnail_url + '\'' +
+                ", audio_url='" + audio_url + '\'' +
+                ", content='" + content + '\'' +
+                ", hasLiked=" + hasLiked +
+                ", createDay=" + createDay +
+                ", numberOfComments=" + numberOfComments +
+                ", numberOfLikes=" + numberOfLikes +
+                '}';
     }
 }

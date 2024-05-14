@@ -10,20 +10,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.google.gson.reflect.TypeToken;
-
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
 import hcmute.com.blankcil.R;
 import hcmute.com.blankcil.config.RetrofitClient;
 import hcmute.com.blankcil.constants.APIService;
-import hcmute.com.blankcil.model.PageResponseModel;
 import hcmute.com.blankcil.model.PodcastModel;
-import hcmute.com.blankcil.model.ResponseModel;
+import hcmute.com.blankcil.model.PodcastResponse;
 import hcmute.com.blankcil.view.adapter.PodcastAdapter;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -34,6 +28,8 @@ public class HomeFragment extends Fragment {
     private PodcastAdapter podcastAdapter;
     private List<PodcastModel> podcastList;
     private APIService apiService;
+    int currentPage = 0;
+    int totalPage = 1;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -43,16 +39,54 @@ public class HomeFragment extends Fragment {
 
         // Khởi tạo danh sách podcast
         podcastList = new ArrayList<>();
+        // Khởi tạo adapter và gắn adapter vào ViewPager2
+        podcastAdapter = new PodcastAdapter(getContext(), podcastList);
+        viewPager2.setAdapter(podcastAdapter);
+        viewPager2.setOrientation(ViewPager2.ORIENTATION_VERTICAL);
 
         RetrofitClient retrofitClient = RetrofitClient.getInstance();
         apiService = retrofitClient.getApi();
-        fetchPodcasts();
+        fetchPodcasts(currentPage);
+
+        viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageSelected(int position) {
+                super.onPageSelected(position);
+
+                // Kiểm tra xem người dùng cuộn đến cuối danh sách hay không
+                if (position == podcastAdapter.getItemCount() - 1) {
+                    if (currentPage < totalPage) {
+                        currentPage++;
+                        fetchPodcasts(currentPage); // Gọi API để lấy danh sách podcast mới
+                    }
+                }
+            }
+        });
 
         return view;
     }
 
-    private void fetchPodcasts() {
+    private void fetchPodcasts(int page) {
+        apiService.getPodcasts(page).enqueue(new Callback<PodcastResponse>() {
+            @Override
+            public void onResponse(Call<PodcastResponse> call, Response<PodcastResponse> response) {
+                if (response.body() != null && response.body().getBody() != null) {
+                    List<PodcastModel> newPodcasts = response.body().getBody().getContent();
+                    totalPage = response.body().getBody().getTotalPage();
+                    podcastList.addAll(newPodcasts);
+                    podcastAdapter.notifyDataSetChanged();
+//                    podcastAdapter = new PodcastAdapter(getContext(), podcastList);
+//                    viewPager2.setAdapter(podcastAdapter);
+//                    viewPager2.setOrientation(ViewPager2.ORIENTATION_VERTICAL);
+                } else {
+                    Log.d("fetchPodcasts", "Response body or body content is null");
+                }
+            }
 
+            @Override
+            public void onFailure(Call<PodcastResponse> call, Throwable t) {
+                Log.d("fetchPodcasts", "Request failed: " + t.getMessage());
+            }
+        });
     }
-
 }
