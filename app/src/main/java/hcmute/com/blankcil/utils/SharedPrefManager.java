@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 
 import com.google.gson.Gson;
 
+import hcmute.com.blankcil.model.RegisterResponse;
 import hcmute.com.blankcil.model.UserModel;
 
 public class SharedPrefManager {
@@ -12,6 +13,7 @@ public class SharedPrefManager {
     private static final String KEY_ACCESS_TOKEN = "access_token";
     private static final String KEY_REFRESH_TOKEN = "refresh_token";
     private static final String KEY_USER_MODEL = "user_model";
+    private static final String KEY_USER_EMAIL = "user_email";
     private static SharedPrefManager instance;
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
@@ -53,6 +55,17 @@ public class SharedPrefManager {
         Gson gson = new Gson();
         String userModelJson = sharedPreferences.getString(KEY_USER_MODEL, null);
         return gson.fromJson(userModelJson, UserModel.class);
+    }
+
+    public void saveEmail(RegisterResponse registerResponse) {
+        Gson gson = new Gson();
+        String userEmailJson = gson.toJson(registerResponse.getEmail());
+        editor.putString(KEY_USER_EMAIL, userEmailJson);
+        editor.apply();
+    }
+
+    public String getUserEmail() {
+        return sharedPreferences.getString(KEY_USER_EMAIL, null);
     }
 
     public void clear() {

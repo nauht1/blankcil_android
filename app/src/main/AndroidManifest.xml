@@ -30,6 +30,11 @@
             android:exported="true">
         </activity>
 
+        <activity
+            android:name=".view.activities.EmailConfirmationActivity"
+            android:exported="true">
+        </activity>
+
     </application>
 
 </manifest>

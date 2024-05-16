@@ -10,7 +10,7 @@
         android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="90dp"
         android:layout_weight="1"
         android:gravity="center_horizontal"
         android:text="Welcome to BlankCil"
@@ -30,7 +30,7 @@
         android:gravity="center_horizontal"
         android:text="Register"
         android:textColor="@color/white"
-        android:textSize="30dp"
+        android:textSize="32dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/edtFullName"
         app:layout_constraintEnd_toEndOf="parent"
@@ -43,7 +43,7 @@
         android:id="@+id/edtFullName"
         android:layout_width="350dp"
         android:layout_height="45dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="60dp"
         android:layout_marginBottom="10dp"
         android:background="@color/white"
         android:backgroundTint="@color/white"
@@ -60,78 +60,23 @@
         android:id="@+id/edtRegEmail"
         android:layout_width="350dp"
         android:layout_height="45dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginTop="20dp"
         android:background="@color/white"
         android:backgroundTint="@color/white"
         android:hint="Email"
         android:paddingStart="10dp"
         android:textSize="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/edtAddress"
+        app:layout_constraintBottom_toTopOf="@id/edtPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtFullName"
-        app:layout_constraintVertical_bias="0.944" />
-
-    <EditText
-        android:id="@+id/edtAddress"
-        android:layout_width="350dp"
-        android:layout_height="45dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:background="@color/white"
-        android:backgroundTint="@color/white"
-        android:hint="Address"
-        android:paddingStart="10dp"
-        android:textSize="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/edtPhoneNumber"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.491"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtRegEmail"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <EditText
-        android:id="@+id/edtPhoneNumber"
-        android:layout_width="350dp"
-        android:layout_height="45dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:background="@color/white"
-        android:backgroundTint="@color/white"
-        android:hint="Phone Number"
-        android:paddingStart="10dp"
-        android:textSize="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/edtBirthday"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.491"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtAddress" />
-
-    <EditText
-        android:id="@+id/edtBirthday"
-        android:layout_width="350dp"
-        android:layout_height="45dp"
-        android:layout_marginTop="10dp"
-        android:background="@color/white"
-        android:backgroundTint="@color/white"
-        android:clickable="true"
-        android:focusable="false"
-        android:hint="Birthday"
-        android:paddingStart="10dp"
-        android:textSize="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/edtPassword"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.49"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtPhoneNumber" />
+        app:layout_constraintTop_toBottomOf="@+id/edtFullName" />
 
     <EditText
         android:id="@+id/edtPassword"
         android:layout_width="350dp"
         android:layout_height="45dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="30dp"
         android:background="@color/white"
         android:backgroundTint="@color/white"
         android:hint="Password"
@@ -140,15 +85,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtBirthday" />
+        app:layout_constraintTop_toBottomOf="@id/edtRegEmail"
+
+        tools:layout_editor_absoluteY="547dp" />
 
     <Button
-        android:id="@+id/btnReg"
-        android:layout_width="150dp"
-        android:layout_height="50dp"
+        android:id="@+id/btnRegister"
+        android:layout_width="160dp"
+        android:layout_height="60dp"
         android:backgroundTint="@color/red_pink"
         android:text="Regist"
-        android:textSize="20dp"
+        android:textSize="22dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
@@ -170,6 +117,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnReg" />
+        app:layout_constraintTop_toBottomOf="@+id/btnRegister" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
