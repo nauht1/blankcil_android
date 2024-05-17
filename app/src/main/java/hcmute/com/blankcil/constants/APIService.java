@@ -3,10 +3,14 @@ package hcmute.com.blankcil.constants;
 import hcmute.com.blankcil.model.AuthenticateRequest;
 import hcmute.com.blankcil.model.AuthenticateResponse;
 import hcmute.com.blankcil.model.PodcastModel;
-import hcmute.com.blankcil.model.PodcastResponse;
-import hcmute.com.blankcil.model.ProfileResponse;
 import hcmute.com.blankcil.model.ResponseModel;
 import okhttp3.MultipartBody;
+import hcmute.com.blankcil.model.ConfirmRequest;
+import hcmute.com.blankcil.model.PodcastResponse;
+import hcmute.com.blankcil.model.ProfileResponse;
+import hcmute.com.blankcil.model.RegisterRequest;
+import hcmute.com.blankcil.model.RegisterResponse;
+import hcmute.com.blankcil.model.UserModel;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -37,6 +41,16 @@ public interface APIService {
     @POST("auth/authenticate")
     Call<AuthenticateResponse> authenticate(
             @Body AuthenticateRequest request
+    );
+
+    @POST("auth/register")
+    Call<RegisterResponse> register(
+            @Body RegisterRequest registerRequest
+    );
+
+    @POST("auth/confirm-email")
+    Call<AuthenticateResponse> confirmEmail(
+            @Body ConfirmRequest confirmRequest
     );
 
     @POST("auth/refresh-token")

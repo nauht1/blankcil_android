@@ -52,4 +52,7 @@ dependencies {
     implementation ("com.github.bumptech.glide:glide:4.14.2")
     implementation("de.hdodenhof:circleimageview:3.1.0")
     annotationProcessor ("com.github.bumptech.glide:compiler:4.14.2")
+
+    //Toggle the visibility of the password
+    implementation("com.google.android.material:material:1.12.0")
 }

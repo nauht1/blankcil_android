@@ -56,10 +56,8 @@ public class SharedPrefManager {
         return gson.fromJson(userModelJson, UserModel.class);
     }
 
-    public void saveUserEmail(String userEmail) {
-        Gson gson = new Gson();
-        String userEmailJson = gson.toJson(userEmail);
-        editor.putString(KEY_USER_EMAIL, userEmailJson);
+    public void saveEmail(String email) {
+        editor.putString(KEY_USER_EMAIL, email);
         editor.apply();
     }
 
