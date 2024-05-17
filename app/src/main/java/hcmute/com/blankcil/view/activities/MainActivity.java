@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
                 super.onPageSelected(position);
                 switch (position) {
                     case 1:
-                        mBottomNavigationView.getMenu().findItem(R.id.friendTab).setChecked(true);
+                        mBottomNavigationView.getMenu().findItem(R.id.searchTab).setChecked(true);
                         break;
                     case 2:
                         mBottomNavigationView.getMenu().findItem(R.id.chatTab).setChecked(true);
@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
         mBottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                if (item.getItemId() == R.id.friendTab) {
+                if (item.getItemId() == R.id.searchTab) {
                     mViewPager.setCurrentItem(1);
                     return true;
                 } else if (item.getItemId() == R.id.chatTab) {

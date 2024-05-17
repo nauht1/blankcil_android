@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black80"
+    tools:context=".view.fragments.SearchFragment">
+
+    <SearchView
+        android:id="@+id/search_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:queryHint="Search users or podcasts..." />
+
+    <TextView
+        android:id="@+id/users_section"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/search_view"
+        android:padding="16dp"
+        android:text="Users"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"/>
+
+    <TextView
+        android:id="@+id/noUserFound"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/users_section"
+        android:padding="5dp"
+        android:text="No user found"
+        android:layout_centerHorizontal="true"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/users_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_below="@id/noUserFound"
+        android:padding="16dp"
+        android:clipToPadding="false"/>
+
+    <TextView
+        android:id="@+id/podcasts_section"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/users_recycler_view"
+        android:padding="16dp"
+        android:text="Podcasts"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"/>
+
+    <TextView
+        android:id="@+id/noPodcastFound"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/podcasts_section"
+        android:padding="5dp"
+        android:text="No podcast found"
+        android:layout_centerHorizontal="true"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/podcasts_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/podcasts_section"
+        android:padding="16dp"
+        android:clipToPadding="false"/>
+</RelativeLayout>

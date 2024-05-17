@@ -10,7 +10,6 @@ import hcmute.com.blankcil.model.PodcastResponse;
 import hcmute.com.blankcil.model.ProfileResponse;
 import hcmute.com.blankcil.model.RegisterRequest;
 import hcmute.com.blankcil.model.RegisterResponse;
-import hcmute.com.blankcil.model.UserModel;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -61,5 +60,10 @@ public interface APIService {
     @GET("users/profile")
     Call<ProfileResponse> getProfile(
             @Header("Authorization") String token
+    );
+
+    @GET("users/search")
+    Call<SearchResponse> search(
+            @Query("keyword") String keyword
     );
 }

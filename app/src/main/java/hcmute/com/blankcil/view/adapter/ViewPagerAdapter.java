@@ -7,7 +7,6 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import hcmute.com.blankcil.view.fragments.AccountFragment;
 import hcmute.com.blankcil.view.fragments.ChatFragment;
-import hcmute.com.blankcil.view.fragments.FriendsFragment;
 import hcmute.com.blankcil.view.fragments.HomeFragment;
 
 public class ViewPagerAdapter extends FragmentStateAdapter {
@@ -20,7 +19,7 @@ public class ViewPagerAdapter extends FragmentStateAdapter {
     public Fragment createFragment(int position) {
         switch (position) {
             case 1:
-                return new FriendsFragment();
+                return new SearchFragment();
             case 2:
                 return new ChatFragment();
             case 3:
