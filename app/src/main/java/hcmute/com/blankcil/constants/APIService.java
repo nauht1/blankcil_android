@@ -4,6 +4,7 @@ import hcmute.com.blankcil.model.AuthenticateRequest;
 import hcmute.com.blankcil.model.AuthenticateResponse;
 import hcmute.com.blankcil.model.PodcastModel;
 import hcmute.com.blankcil.model.ResponseModel;
+import hcmute.com.blankcil.model.SearchResponse;
 import okhttp3.MultipartBody;
 import hcmute.com.blankcil.model.ConfirmRequest;
 import hcmute.com.blankcil.model.PodcastResponse;

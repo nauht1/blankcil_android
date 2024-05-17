@@ -8,6 +8,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 import hcmute.com.blankcil.view.fragments.AccountFragment;
 import hcmute.com.blankcil.view.fragments.ChatFragment;
 import hcmute.com.blankcil.view.fragments.HomeFragment;
+import hcmute.com.blankcil.view.fragments.SearchFragment;
 
 public class ViewPagerAdapter extends FragmentStateAdapter {
     public ViewPagerAdapter(@NonNull FragmentActivity fragmentActivity) {
