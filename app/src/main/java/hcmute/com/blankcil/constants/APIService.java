@@ -18,6 +18,7 @@ import retrofit2.http.Header;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface APIService {
@@ -66,5 +67,11 @@ public interface APIService {
     @GET("users/search")
     Call<SearchResponse> search(
             @Query("keyword") String keyword
+    );
+
+    @POST("users/like/podcast/{id}")
+    Call<ResponseModel> likePodcast(
+            @Header("Authorization") String token,
+            @Path("id") long podcastId
     );
 }

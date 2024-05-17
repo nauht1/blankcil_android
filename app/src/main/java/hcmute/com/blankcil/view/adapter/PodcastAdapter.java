@@ -3,6 +3,7 @@ package hcmute.com.blankcil.view.adapter;
 import android.content.Context;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,16 +16,27 @@ import android.widget.VideoView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+
 import org.w3c.dom.Text;
 
 import java.util.List;
 
 import hcmute.com.blankcil.R;
+import hcmute.com.blankcil.config.RetrofitClient;
+import hcmute.com.blankcil.constants.APIService;
 import hcmute.com.blankcil.model.PodcastModel;
+import hcmute.com.blankcil.model.ResponseModel;
+import hcmute.com.blankcil.utils.SharedPrefManager;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class PodcastAdapter extends RecyclerView.Adapter<PodcastAdapter.PodcastViewHolder> {
     private Context context;
     private List<PodcastModel> podcastList;
+    private APIService apiService;
+
     public PodcastAdapter(Context context, List<PodcastModel> podcastList) {
         this.context = context;
         this.podcastList = podcastList;
@@ -43,6 +55,8 @@ public class PodcastAdapter extends RecyclerView.Adapter<PodcastAdapter.PodcastV
         holder.textContent.setText(podcast.getContent());
         holder.likeCount.setText(String.valueOf(podcast.getNumberOfLikes()));
         holder.commentCount.setText(String.valueOf(podcast.getNumberOfComments()));
+        Glide.with(holder.imUserAvatar.getContext()).load(podcast.getUser_podcast().getAvatar_url()).into(holder.imUserAvatar);
+        holder.textUserFullname.setText(String.valueOf(podcast.getUser_podcast().getFullname()));
         holder.videoView.setVideoURI(Uri.parse(podcast.getAudio_url()));
         holder.videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             @Override
@@ -80,12 +94,14 @@ public class PodcastAdapter extends RecyclerView.Adapter<PodcastAdapter.PodcastV
             }
         });
 
-        // Kiểm tra giá trị hasLiked và cập nhật hình ảnh của nút like
-        if (podcast.isHasLiked()) {
-            holder.imLike.setImageResource(R.drawable.ic_liked);
-        } else {
-            holder.imLike.setImageResource(R.drawable.ic_like);
-        }
+        // Cập nhật hình ảnh của nút like dựa trên giá trị hasLiked
+        updateLikeButtonImage(holder.imLike, podcast.isHasLiked());
+
+        // Thêm sự kiện click cho nút like
+        holder.imLike.setOnClickListener(v -> {
+            sendLikeRequest(podcast, holder.likeCount, holder.imLike);
+        });
+
     }
 
     @Override
@@ -97,11 +113,10 @@ public class PodcastAdapter extends RecyclerView.Adapter<PodcastAdapter.PodcastV
     }
 
     public static class PodcastViewHolder extends RecyclerView.ViewHolder {
-
         private VideoView videoView;
-        private TextView textTitle, textContent;
-        private TextView likeCount, commentCount;
+        private TextView textTitle, textContent, likeCount, commentCount, textUserFullname;
         private ImageButton imLike, imComment, imShare;
+        private ImageView imUserAvatar;
 
         public PodcastViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -113,12 +128,52 @@ public class PodcastAdapter extends RecyclerView.Adapter<PodcastAdapter.PodcastV
             imLike = itemView.findViewById(R.id.btnLike);
             imComment = itemView.findViewById(R.id.btnComment);
             imShare = itemView.findViewById(R.id.btnShareLink);
+            textUserFullname = itemView.findViewById(R.id.user_fullname);
+            imUserAvatar = itemView.findViewById(R.id.user_avatar);
         }
     }
 
-    public void addPodcasts(List<PodcastModel> newPodcasts) {
-        int startPosition = podcastList.size();
-        podcastList.addAll(newPodcasts);
-        notifyItemRangeInserted(startPosition, newPodcasts.size());
+    private void updateLikeButtonImage(ImageButton imLike, boolean hasLiked) {
+        if (hasLiked) {
+            imLike.setImageResource(R.drawable.ic_liked);
+        } else {
+            imLike.setImageResource(R.drawable.ic_like);
+        }
+    }
+
+    private void updateLikeCount(TextView likeCount, PodcastModel podcast) {
+        likeCount.setText(String.valueOf(podcast.getNumberOfLikes()));
+    }
+
+    private void sendLikeRequest(PodcastModel podcast, TextView likeCount, ImageButton imLike) {
+        RetrofitClient retrofitClient = RetrofitClient.getInstance();
+        apiService = retrofitClient.getApi();
+        String accessToken = SharedPrefManager.getInstance(context.getApplicationContext()).getAccessToken();
+
+        apiService.likePodcast("Bearer " + accessToken, podcast.getId()).enqueue(new Callback<ResponseModel>() {
+            @Override
+            public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    String message = response.body().getMessage();
+                    if ("Liked".equals(message)) {
+                        podcast.setHasLiked(true);
+                        podcast.setNumberOfLikes(podcast.getNumberOfLikes() + 1);
+                        updateLikeButtonImage(imLike, true);
+                    } else if ("Unliked".equals(message)) {
+                        podcast.setHasLiked(false);
+                        podcast.setNumberOfLikes(podcast.getNumberOfLikes() - 1);
+                        updateLikeButtonImage(imLike, false);
+                    }
+                    updateLikeCount(likeCount, podcast);
+                } else {
+                    Log.d("PodcastAdapter", "Response not successful or body is null");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseModel> call, Throwable t) {
+                Log.d("PodcastAdapter", "Request failed: " + t.getMessage());
+            }
+        });
     }
 }
