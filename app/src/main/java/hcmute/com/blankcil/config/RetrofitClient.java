@@ -11,11 +11,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitClient {
     //Dùng để chạy local host song song với máy ảo
-//    private static String BASE_URL="http://10.0.2.2:9090/api/v1/";
+    private static String BASE_URL="http://10.0.2.2:9090/api/v1/";
 
     //Dùng để chạy local host song song với máy THẬT, cả 2 thiết bị phải cùng kết nối chung 1 internet
     //và thay IPv4 của (windows/mac) vào bên dưới nhé.
-    private static String BASE_URL="http://192.168.1.3:9090/api/v1/";
+//    private static String BASE_URL="http://192.168.1.3:9090/api/v1/";
 
 
     private static RetrofitClient retrofitClient;

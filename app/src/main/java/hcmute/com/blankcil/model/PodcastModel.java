@@ -14,8 +14,9 @@ public class PodcastModel implements Serializable {
     private Date createDay;
     private int numberOfComments;
     private int numberOfLikes;
+    private UserModel user_podcast;
 
-    public PodcastModel(int id, String title, String thumbnail_url, String audio_url, String content, boolean hasLiked, Date createDay, int numberOfComments, int numberOfLikes) {
+    public PodcastModel(int id, String title, String thumbnail_url, String audio_url, String content, boolean hasLiked, Date createDay, int numberOfComments, int numberOfLikes, UserModel user_podcast) {
         this.id = id;
         this.title = title;
         this.thumbnail_url = thumbnail_url;
@@ -25,6 +26,7 @@ public class PodcastModel implements Serializable {
         this.createDay = createDay;
         this.numberOfComments = numberOfComments;
         this.numberOfLikes = numberOfLikes;
+        this.user_podcast = user_podcast;
     }
 
     public int getId() {
@@ -99,6 +101,14 @@ public class PodcastModel implements Serializable {
         this.numberOfLikes = numberOfLikes;
     }
 
+    public UserModel getUser_podcast() {
+        return user_podcast;
+    }
+
+    public void setUser_podcast(UserModel user_podcast) {
+        this.user_podcast = user_podcast;
+    }
+
     @Override
     public String toString() {
         return "PodcastModel{" +
@@ -111,6 +121,7 @@ public class PodcastModel implements Serializable {
                 ", createDay=" + createDay +
                 ", numberOfComments=" + numberOfComments +
                 ", numberOfLikes=" + numberOfLikes +
+                ", user_podcast=" + user_podcast +
                 '}';
     }
 }

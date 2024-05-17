@@ -29,7 +29,6 @@ public class PodcastAdapter extends RecyclerView.Adapter<PodcastAdapter.PodcastV
         this.context = context;
         this.podcastList = podcastList;
     }
-
     @NonNull
     @Override
     public PodcastAdapter.PodcastViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -60,6 +59,18 @@ public class PodcastAdapter extends RecyclerView.Adapter<PodcastAdapter.PodcastV
                 }
             }
         });
+
+        holder.videoView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (holder.videoView.isPlaying()) {
+                    holder.videoView.pause();
+                } else {
+                    holder.videoView.start();
+                }
+            }
+        });
+
         holder.videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {

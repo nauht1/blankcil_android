@@ -42,7 +42,7 @@
     </RelativeLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingActionButton"
+        android:id="@+id/fabCreatePodcast"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/white"
@@ -55,6 +55,20 @@
         app:layout_anchorGravity="center"
         app:maxImageSize="26dp"
         app:tint="@color/blue" />
+
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/bottomNav" />
+
+    <ProgressBar
+        android:id="@+id/uploadingProgress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:visibility="gone"
+        android:layout_above="@id/bottomNav"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

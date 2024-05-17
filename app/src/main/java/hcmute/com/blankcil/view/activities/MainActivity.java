@@ -2,23 +2,31 @@ package hcmute.com.blankcil.view.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageButton;
 
+import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationBarView;
 
 import hcmute.com.blankcil.R;
 import hcmute.com.blankcil.view.adapter.ViewPagerAdapter;
-import hcmute.com.blankcil.databinding.ActivityMainBinding;
+import hcmute.com.blankcil.view.fragments.CreatePodcastFragment;
 
 public class MainActivity extends AppCompatActivity {
     private ViewPager2 mViewPager;
     private BottomNavigationView mBottomNavigationView;
-    ActivityMainBinding activityMainBinding;
     private BottomNavigationView bottomNav;
+    private FloatingActionButton fabCreatePodcast;
+    private BottomAppBar bottomAppBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,9 +34,26 @@ public class MainActivity extends AppCompatActivity {
 
         mViewPager = findViewById(R.id.viewPager);
         mBottomNavigationView = findViewById(R.id.bottomNav);
+        fabCreatePodcast = findViewById(R.id.fabCreatePodcast);
+        bottomAppBar = findViewById(R.id.bottomAppBar);
 
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(this);
         mViewPager.setAdapter(viewPagerAdapter);
+
+        fabCreatePodcast.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mViewPager.setVisibility(View.GONE);
+                mBottomNavigationView.setVisibility(View.GONE);
+                bottomAppBar.setVisibility(View.GONE);
+
+                Fragment mFragment = null;
+                mFragment = new CreatePodcastFragment();
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.fragment_container, mFragment).commit();
+            }
+        });
 
         mViewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
