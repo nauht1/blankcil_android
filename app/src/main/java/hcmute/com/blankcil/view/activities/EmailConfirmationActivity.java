@@ -16,8 +16,6 @@ import hcmute.com.blankcil.config.RetrofitClient;
 import hcmute.com.blankcil.constants.APIService;
 import hcmute.com.blankcil.model.AuthenticateResponse;
 import hcmute.com.blankcil.model.ConfirmRequest;
-import hcmute.com.blankcil.model.RegisterRequest;
-import hcmute.com.blankcil.model.RegisterResponse;
 import hcmute.com.blankcil.utils.SharedPrefManager;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -50,6 +48,7 @@ public class EmailConfirmationActivity extends AppCompatActivity implements View
     public void onClick(View v) {
         confirm();
     }
+
     public void confirm() {
         String code1 = ec1.getText().toString().trim();
         String code2 = ec2.getText().toString().trim();
@@ -75,12 +74,15 @@ public class EmailConfirmationActivity extends AppCompatActivity implements View
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
                     finish();
+                } else {
+                    Toast.makeText(EmailConfirmationActivity.this, "Verification failed!", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<AuthenticateResponse> call, Throwable t) {
-                Log.d("EmailConfirm", "Failed" + t.getMessage());
+                Log.d("EmailConfirm", "Failed: " + t.getMessage());
+                Toast.makeText(EmailConfirmationActivity.this, "Verification failed!", Toast.LENGTH_SHORT).show();
             }
         });
     }
