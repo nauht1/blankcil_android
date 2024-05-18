@@ -6,10 +6,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import org.w3c.dom.Text;
 
 import hcmute.com.blankcil.R;
 import hcmute.com.blankcil.config.RetrofitClient;
@@ -25,7 +28,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     EditText fullname, email, password;
     Button registerBtn;
     private APIService apiService;
-
+    TextView textViewLogin;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +41,16 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         password = findViewById(R.id.edtPassword);
         registerBtn = findViewById(R.id.btnRegister);
         registerBtn.setOnClickListener(this);
+        textViewLogin = findViewById(R.id.textViewLogin);
+        textViewLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
     @Override

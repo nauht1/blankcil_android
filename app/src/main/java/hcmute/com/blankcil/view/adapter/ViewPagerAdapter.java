@@ -6,7 +6,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import hcmute.com.blankcil.view.fragments.AccountFragment;
-import hcmute.com.blankcil.view.fragments.ChatFragment;
+import hcmute.com.blankcil.view.fragments.NotificationFragment;
 import hcmute.com.blankcil.view.fragments.HomeFragment;
 import hcmute.com.blankcil.view.fragments.SearchFragment;
 
@@ -22,7 +22,7 @@ public class ViewPagerAdapter extends FragmentStateAdapter {
             case 1:
                 return new SearchFragment();
             case 2:
-                return new ChatFragment();
+                return new NotificationFragment();
             case 3:
                 return new AccountFragment();
             default:

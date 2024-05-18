@@ -1,6 +1,7 @@
 package hcmute.com.blankcil.view.fragments;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -23,6 +25,7 @@ import hcmute.com.blankcil.R;
 import hcmute.com.blankcil.model.PodcastModel;
 import hcmute.com.blankcil.model.UserModel;
 import hcmute.com.blankcil.utils.SharedPrefManager;
+import hcmute.com.blankcil.view.adapter.PodcastMiniAdapter;
 
 
 public class AccountFragment extends Fragment implements View.OnClickListener {
@@ -30,6 +33,7 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
     TextView txtNumberOfPodcast, txtUsername, txtEmail;
     Button btnEdit;
     RecyclerView recyclerView;
+    private PodcastMiniAdapter podcastMiniAdapter;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -42,6 +46,10 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
         recyclerView = view.findViewById(R.id.recyclerviewPodcast);
         txtEmail = view.findViewById(R.id.txtEmailProfile);
         btnEdit = view.findViewById(R.id.btnEditProfile);
+        btnEdit.setVisibility(View.VISIBLE);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        podcastMiniAdapter = new PodcastMiniAdapter();
+        recyclerView.setAdapter(podcastMiniAdapter);
 
         UserModel userModel = SharedPrefManager.getInstance(getContext()).getUserModel();
         if(userModel!=null){
@@ -74,6 +82,10 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
                         .load("https://as1.ftcdn.net/v2/jpg/04/62/76/74/1000_F_462767413_4gRTpH3q2U9DUXdK3UubkOeFXsnUlENd.jpg")
                         .into(imgBanner);
             }
+
+            List<PodcastModel> podcastList = userModel.getPodcasts();
+            Log.d("AccountFragment", "PODCAST: " + podcastList);
+            podcastMiniAdapter.setPodcasts(podcastList);
         }
 
         btnEdit.setOnClickListener(new View.OnClickListener() {

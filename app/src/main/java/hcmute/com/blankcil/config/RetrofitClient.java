@@ -15,8 +15,8 @@ public class RetrofitClient {
 
     //Dùng để chạy local host song song với máy THẬT, cả 2 thiết bị phải cùng kết nối chung 1 internet
     //và thay IPv4 của (windows/mac) vào bên dưới nhé.
-//    private static String BASE_URL="http://192.168.1.3:9090/api/v1/";
-    private static String BASE_URL="http://192.168.1.132:9090/api/v1/";
+    private static String BASE_URL="http://192.168.1.3:9090/api/v1/";
+//    private static String BASE_URL="http://192.168.1.132:9090/api/v1/";
 
 
     private static RetrofitClient retrofitClient;

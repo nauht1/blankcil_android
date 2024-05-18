@@ -8,120 +8,238 @@
     android:background="@color/black80"
     tools:context=".view.fragments.AccountFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-
-    <!--    <TextView-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="match_parent"-->
-    <!--        android:gravity="center"-->
-    <!--        android:text="Account"-->
-    <!--        android:textColor="@color/white"-->
-    <!--        android:textSize="30dp" />-->
-
+    <!-- ImageView for Banner -->
     <ImageView
         android:id="@+id/imgBanner"
         android:layout_width="match_parent"
         android:layout_height="148dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="583dp"
+        android:layout_alignParentTop="true"
         android:scaleType="centerCrop"
         android:src="@drawable/banner2" />
 
+    <!-- CircleImageView for Avatar -->
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imgAvatar"
-        android:layout_width="175dp"
-        android:layout_height="155dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_below="@id/imgBanner"
         android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="-4dp"
-        android:layout_marginEnd="241dp"
-        android:layout_marginBottom="483dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
         android:src="@drawable/avatar1" />
 
+    <!-- TextView for Username -->
     <TextView
         android:id="@+id/txtUsername"
-        android:layout_width="198dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="42dp"
-        android:layout_marginBottom="535dp"
+        android:layout_below="@id/imgBanner"
+        android:layout_toEndOf="@id/imgAvatar"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         android:text="Blankcil UserName"
         android:textColor="#E91E63"
         android:textSize="18sp"
         android:textStyle="bold" />
 
+    <!-- TextView for Email -->
     <TextView
-        android:id="@+id/textView7"
+        android:id="@+id/txtEmailProfile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/btnEditProfile"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="108dp"
-        android:layout_marginBottom="18dp"
-        android:text="podcasts"
-        android:textColor="#99BFDD"
-        android:textSize="15sp" />
+        android:layout_below="@id/txtUsername"
+        android:layout_alignStart="@id/txtUsername"
+        android:layout_marginTop="8dp"
+        android:text="email"
+        android:textColor="@color/white"
+        android:textSize="12sp" />
 
+    <!-- ImageView for Podcast Icon -->
     <ImageView
         android:id="@+id/iconPodcast"
         android:layout_width="58dp"
         android:layout_height="43dp"
-        android:layout_above="@+id/btnEditProfile"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="196dp"
-        android:layout_marginBottom="9dp"
+        android:layout_below="@id/txtEmailProfile"
+        android:layout_alignStart="@id/txtEmailProfile"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         android:src="@drawable/ic_podcast" />
 
+    <!-- TextView for Number of Podcasts -->
     <TextView
         android:id="@+id/txtNumberOfPodcasts"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/btnEditProfile"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="182dp"
-        android:layout_marginBottom="19dp"
+        android:layout_alignBottom="@id/iconPodcast"
+        android:layout_toEndOf="@id/iconPodcast"
+        android:layout_marginBottom="10dp"
+        android:layout_marginEnd="5dp"
         android:text="12"
         android:textColor="#99BFDD"
         android:textSize="15sp" />
 
+    <!-- TextView for Podcast Label -->
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/iconPodcast"
+        android:layout_marginBottom="10dp"
+        android:layout_toEndOf="@id/txtNumberOfPodcasts"
+        android:text="podcasts"
+        android:textColor="#99BFDD"
+        android:textSize="15sp" />
+
+    <!-- Button for Edit Profile -->
     <Button
         android:id="@+id/btnEditProfile"
-        android:layout_width="382dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="18dp"
-        android:layout_marginBottom="413dp"
+        android:layout_below="@+id/iconPodcast"
         android:backgroundTint="#F32A6F"
         android:text="View and Edit Profile"
         android:textAllCaps="false" />
 
+    <!-- RecyclerView for Podcasts -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerviewPodcast"
         android:layout_width="match_parent"
-        android:layout_height="393dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="4dp"
-        android:background="#AFB6E1"
+        android:layout_height="match_parent"
+        android:layout_below="@id/btnEditProfile"
         android:clipToPadding="false"
         android:padding="8dp" />
 
-    <TextView
-        android:id="@+id/txtEmailProfile"
-        android:layout_width="230dp"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/textView7"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="162dp"
-        android:layout_marginEnd="19dp"
-        android:layout_marginBottom="15dp"
-        android:text="email"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:textSize="12sp" />
 
 
 </RelativeLayout>
+
+    <!--<?xml version="1.0" encoding="utf-8"?>-->
+<!--<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--    xmlns:tools="http://schemas.android.com/tools"-->
+<!--    android:id="@+id/container"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="match_parent"-->
+<!--    android:background="@color/black80"-->
+<!--    tools:context=".view.fragments.AccountFragment">-->
+
+<!--    &lt;!&ndash; TODO: Update blank fragment layout &ndash;&gt;-->
+
+<!--    &lt;!&ndash;    <TextView&ndash;&gt;-->
+<!--    &lt;!&ndash;        android:layout_width="match_parent"&ndash;&gt;-->
+<!--    &lt;!&ndash;        android:layout_height="match_parent"&ndash;&gt;-->
+<!--    &lt;!&ndash;        android:gravity="center"&ndash;&gt;-->
+<!--    &lt;!&ndash;        android:text="Account"&ndash;&gt;-->
+<!--    &lt;!&ndash;        android:textColor="@color/white"&ndash;&gt;-->
+<!--    &lt;!&ndash;        android:textSize="30dp" />&ndash;&gt;-->
+
+<!--    <ImageView-->
+<!--        android:id="@+id/imgBanner"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="148dp"-->
+<!--        android:layout_alignParentBottom="true"-->
+<!--        android:layout_marginBottom="583dp"-->
+<!--        android:scaleType="centerCrop"-->
+<!--        android:src="@drawable/banner2" />-->
+
+<!--    <de.hdodenhof.circleimageview.CircleImageView-->
+<!--        android:id="@+id/imgAvatar"-->
+<!--        android:layout_width="175dp"-->
+<!--        android:layout_height="155dp"-->
+<!--        android:layout_alignParentStart="true"-->
+<!--        android:layout_alignParentEnd="true"-->
+<!--        android:layout_alignParentBottom="true"-->
+<!--        android:layout_marginStart="-4dp"-->
+<!--        android:layout_marginEnd="241dp"-->
+<!--        android:layout_marginBottom="483dp"-->
+<!--        android:src="@drawable/avatar1" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/txtUsername"-->
+<!--        android:layout_width="198dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_alignParentEnd="true"-->
+<!--        android:layout_alignParentBottom="true"-->
+<!--        android:layout_marginEnd="42dp"-->
+<!--        android:layout_marginBottom="535dp"-->
+<!--        android:text="Blankcil UserName"-->
+<!--        android:textColor="#E91E63"-->
+<!--        android:textSize="18sp"-->
+<!--        android:textStyle="bold" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/textView7"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_above="@+id/btnEditProfile"-->
+<!--        android:layout_alignParentEnd="true"-->
+<!--        android:layout_marginEnd="108dp"-->
+<!--        android:layout_marginBottom="18dp"-->
+<!--        android:text="podcasts"-->
+<!--        android:textColor="#99BFDD"-->
+<!--        android:textSize="15sp" />-->
+
+<!--    <ImageView-->
+<!--        android:id="@+id/iconPodcast"-->
+<!--        android:layout_width="58dp"-->
+<!--        android:layout_height="43dp"-->
+<!--        android:layout_above="@+id/btnEditProfile"-->
+<!--        android:layout_alignParentEnd="true"-->
+<!--        android:layout_marginEnd="196dp"-->
+<!--        android:layout_marginBottom="9dp"-->
+<!--        android:src="@drawable/ic_podcast" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/txtNumberOfPodcasts"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_above="@+id/btnEditProfile"-->
+<!--        android:layout_alignParentEnd="true"-->
+<!--        android:layout_marginEnd="182dp"-->
+<!--        android:layout_marginBottom="19dp"-->
+<!--        android:text="12"-->
+<!--        android:textColor="#99BFDD"-->
+<!--        android:textSize="15sp" />-->
+
+<!--    <Button-->
+<!--        android:id="@+id/btnEditProfile"-->
+<!--        android:layout_width="382dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_alignParentEnd="true"-->
+<!--        android:layout_alignParentBottom="true"-->
+<!--        android:layout_marginEnd="18dp"-->
+<!--        android:layout_marginBottom="413dp"-->
+<!--        android:backgroundTint="#F32A6F"-->
+<!--        android:text="View and Edit Profile"-->
+<!--        android:textAllCaps="false" />-->
+
+<!--    <androidx.recyclerview.widget.RecyclerView-->
+<!--        android:id="@+id/recyclerviewPodcast"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="393dp"-->
+<!--        android:layout_alignParentBottom="true"-->
+<!--        android:layout_marginBottom="4dp"-->
+<!--        android:background="#AFB6E1"-->
+<!--        android:clipToPadding="false"-->
+<!--        android:padding="8dp" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/txtEmailProfile"-->
+<!--        android:layout_width="230dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_above="@+id/textView7"-->
+<!--        android:layout_alignParentStart="true"-->
+<!--        android:layout_alignParentEnd="true"-->
+<!--        android:layout_marginStart="162dp"-->
+<!--        android:layout_marginEnd="19dp"-->
+<!--        android:layout_marginBottom="15dp"-->
+<!--        android:text="email"-->
+<!--        android:textAlignment="center"-->
+<!--        android:textColor="@color/white"-->
+<!--        android:textSize="12sp" />-->
+
+
+<!--</RelativeLayout>-->

@@ -70,7 +70,7 @@ public class EmailConfirmationActivity extends AppCompatActivity implements View
                     Log.d("EmailConfirm", SharedPrefManager.getInstance(getApplicationContext()).getUserEmail());
 
                     // Chuyển đến MainActivity
-                    Intent intent = new Intent(EmailConfirmationActivity.this, MainActivity.class);
+                    Intent intent = new Intent(EmailConfirmationActivity.this, LoginActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
                     finish();

@@ -213,6 +213,7 @@ public class EditProfileFragment extends Fragment {
                 if (response.isSuccessful() && response.body() != null) {
                     Toast.makeText(activity, "Update profile successfully!", Toast.LENGTH_SHORT).show();
                     loadUserProfile(SharedPrefManager.getInstance(getContext()));
+                    SharedPrefManager.getInstance(getContext()).saveUserModel(response.body().getBody());
                 }
                 else {
                     Toast.makeText(activity, "Update profile failed!", Toast.LENGTH_SHORT).show();
@@ -287,8 +288,10 @@ public class EditProfileFragment extends Fragment {
             edtFullname.setText(userModel.getFullname());
             txtEmal.setText(userModel.getEmail());
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
-            String formattedBirthday = sdf.format(userModel.getBirthday());
-            edtBirthday.setText(formattedBirthday);
+            if (userModel.getBirthday() != null) {
+                String formattedBirthday = sdf.format(userModel.getBirthday());
+                edtBirthday.setText(formattedBirthday);
+            }
             edtAddress.setText(userModel.getAddress());
             edtPhone.setText(userModel.getPhone());
             String avatarURL = userModel.getAvatar_url();
