@@ -7,6 +7,7 @@ import hcmute.com.blankcil.model.CommentResponse;
 import hcmute.com.blankcil.model.PodcastModel;
 import hcmute.com.blankcil.model.ResponseModel;
 import hcmute.com.blankcil.model.SearchResponse;
+import hcmute.com.blankcil.model.UserModel;
 import okhttp3.MultipartBody;
 import hcmute.com.blankcil.model.ConfirmRequest;
 import hcmute.com.blankcil.model.PodcastResponse;
@@ -87,9 +88,21 @@ public interface APIService {
             @Field("podcastId") int podcastId
     );
 
-    @GET("podcast/view/{id}/comments")
+    @POST("users/like/comment/{id}")
+    Call<ResponseModel> likeComment(
+            @Header("Authorization") String token,
+            @Path("id") int commentId
+    );
+
+    @GET("podcast/auth/view/{id}/comments")
     Call<CommentResponse> getCommentsForPodcast(
+            @Header("Authorization") String token,
             @Path("id") int commentId,
             @Query("page") int page
+    );
+
+    @GET("users/profile/{id}")
+    Call<UserModel> getProfile(
+            @Path("id") int id
     );
 }

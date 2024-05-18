@@ -53,6 +53,7 @@ public class CommentsBottomSheet extends BottomSheetDialogFragment {
     private int currentPage = 0;
     private boolean isLoading = false;
     private boolean isLastPage = false;
+    private String accessToken;
 
     public static CommentsBottomSheet newInstance(int podcastId) {
         CommentsBottomSheet fragment = new CommentsBottomSheet();
@@ -74,6 +75,7 @@ public class CommentsBottomSheet extends BottomSheetDialogFragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        accessToken = SharedPrefManager.getInstance(getContext()).getAccessToken();
         super.onViewCreated(view, savedInstanceState);
 
         recyclerView = view.findViewById(R.id.recyclerViewComments);
@@ -124,7 +126,7 @@ public class CommentsBottomSheet extends BottomSheetDialogFragment {
 
     private void loadComments(int page) {
         isLoading = true;
-        apiService.getCommentsForPodcast(podcastId, page).enqueue(new Callback<CommentResponse>() {
+        apiService.getCommentsForPodcast("Bearer " + accessToken, podcastId, page).enqueue(new Callback<CommentResponse>() {
             @Override
             public void onResponse(Call<CommentResponse> call, Response<CommentResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
@@ -154,7 +156,6 @@ public class CommentsBottomSheet extends BottomSheetDialogFragment {
         });
     }
     private void sendComment(String content) {
-        String accessToken = SharedPrefManager.getInstance(getContext()).getAccessToken();
         apiService.commentOnPodcast("Bearer " + accessToken, content, podcastId).enqueue(new Callback<ResponseModel<CommentModel>>() {
             @Override
             public void onResponse(Call<ResponseModel<CommentModel>> call, Response<ResponseModel<CommentModel>> response) {
