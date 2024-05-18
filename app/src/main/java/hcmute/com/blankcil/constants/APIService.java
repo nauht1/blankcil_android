@@ -2,6 +2,8 @@ package hcmute.com.blankcil.constants;
 
 import hcmute.com.blankcil.model.AuthenticateRequest;
 import hcmute.com.blankcil.model.AuthenticateResponse;
+import hcmute.com.blankcil.model.CommentModel;
+import hcmute.com.blankcil.model.CommentResponse;
 import hcmute.com.blankcil.model.PodcastModel;
 import hcmute.com.blankcil.model.ResponseModel;
 import hcmute.com.blankcil.model.SearchResponse;
@@ -13,6 +15,8 @@ import hcmute.com.blankcil.model.RegisterRequest;
 import hcmute.com.blankcil.model.RegisterResponse;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Multipart;
@@ -73,5 +77,19 @@ public interface APIService {
     Call<ResponseModel> likePodcast(
             @Header("Authorization") String token,
             @Path("id") long podcastId
+    );
+
+    @FormUrlEncoded
+    @POST("users/comment/podcast")
+    Call<ResponseModel<CommentModel>> commentOnPodcast(
+            @Header("Authorization") String token,
+            @Field("content") String content,
+            @Field("podcastId") int podcastId
+    );
+
+    @GET("podcast/view/{id}/comments")
+    Call<CommentResponse> getCommentsForPodcast(
+            @Path("id") int commentId,
+            @Query("page") int page
     );
 }

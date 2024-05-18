@@ -1,13 +1,15 @@
 package hcmute.com.blankcil.model;
 
 import java.io.Serializable;
+import java.util.List;
 
-public class ResponseModel<P> implements Serializable {
+public class CommentResponse implements Serializable {
     private Boolean status;
     private String message;
-    private P body;
+    private List<CommentModel> body; // Thay đổi từ Body thành List<CommentModel>
 
-    public ResponseModel(Boolean status, String message, P body) {
+    // Constructor, Getter và Setter methods
+    public CommentResponse(Boolean status, String message, List<CommentModel> body) {
         this.status = status;
         this.message = message;
         this.body = body;
@@ -29,11 +31,12 @@ public class ResponseModel<P> implements Serializable {
         this.message = message;
     }
 
-    public P getBody() {
+    public List<CommentModel> getBody() {
         return body;
     }
 
-    public void setBody(P body) {
+    public void setBody(List<CommentModel> body) {
         this.body = body;
     }
+
 }

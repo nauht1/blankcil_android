@@ -14,17 +14,17 @@ import android.widget.TextView;
 import android.widget.VideoView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-
-import org.w3c.dom.Text;
 
 import java.util.List;
 
 import hcmute.com.blankcil.R;
 import hcmute.com.blankcil.config.RetrofitClient;
 import hcmute.com.blankcil.constants.APIService;
+import hcmute.com.blankcil.constants.Interface;
 import hcmute.com.blankcil.model.PodcastModel;
 import hcmute.com.blankcil.model.ResponseModel;
 import hcmute.com.blankcil.utils.SharedPrefManager;
@@ -36,11 +36,17 @@ public class PodcastAdapter extends RecyclerView.Adapter<PodcastAdapter.PodcastV
     private Context context;
     private List<PodcastModel> podcastList;
     private APIService apiService;
+    private Interface.OnCommentCountChangeListener commentCountChangeListener;
 
     public PodcastAdapter(Context context, List<PodcastModel> podcastList) {
         this.context = context;
         this.podcastList = podcastList;
     }
+
+    public void setOnCommentCountChangeListener(Interface.OnCommentCountChangeListener listener) {
+        this.commentCountChangeListener = listener;
+    }
+
     @NonNull
     @Override
     public PodcastAdapter.PodcastViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -54,7 +60,8 @@ public class PodcastAdapter extends RecyclerView.Adapter<PodcastAdapter.PodcastV
         holder.textTitle.setText(podcast.getTitle());
         holder.textContent.setText(podcast.getContent());
         holder.likeCount.setText(String.valueOf(podcast.getNumberOfLikes()));
-        holder.commentCount.setText(String.valueOf(podcast.getNumberOfComments()));
+        int totalComments = podcast.getNumberOfComments();
+        holder.commentCount.setText(String.valueOf(totalComments));
         Glide.with(holder.imUserAvatar.getContext()).load(podcast.getUser_podcast().getAvatar_url()).into(holder.imUserAvatar);
         holder.textUserFullname.setText(String.valueOf(podcast.getUser_podcast().getFullname()));
         holder.videoView.setVideoURI(Uri.parse(podcast.getAudio_url()));
@@ -102,6 +109,17 @@ public class PodcastAdapter extends RecyclerView.Adapter<PodcastAdapter.PodcastV
             sendLikeRequest(podcast, holder.likeCount, holder.imLike);
         });
 
+        holder.imComment.setOnClickListener(v -> {
+            CommentsBottomSheet commentsBottomSheet = CommentsBottomSheet.newInstance(podcast.getId());
+            Log.d("PodcastAdapter", "PodcastId: " + podcast.getId());
+            commentsBottomSheet.setOnCommentCountChangeListener((podcastId, newCommentCount) -> {
+                if (podcast.getId() == podcastId) {
+                    podcast.setNumberOfComments(totalComments + newCommentCount);
+                    holder.commentCount.setText(String.valueOf(totalComments + newCommentCount));
+                }
+            });
+            commentsBottomSheet.show(((FragmentActivity) context).getSupportFragmentManager(), commentsBottomSheet.getTag());
+        });
     }
 
     @Override
