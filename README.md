@@ -30,7 +30,7 @@ Blankcil Project is a social media project, it is developed by the student team 
       <th>Nguyễn Hoàng</th>
       <th>Phương Ngân</th>
       <th>Backend Developer</th>
-      <th>???@gmail.com</th>
+      <th>phuongngan.nguyen2304@gmail.com</th>
     </tr>
     <tr>
       <th>21110xxx</th>
