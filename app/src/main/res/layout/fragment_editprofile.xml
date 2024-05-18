@@ -1,250 +1,226 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black80"
-    tools:context=".view.fragments.EditProfileFragment">
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <!-- TODO: Update blank fragment layout -->
-
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="148dp"
-        android:layout_height="34dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="244dp"
-        android:layout_marginBottom="692dp"
-        android:scrollbarSize="15sp"
-        android:text="View and Edit Profile"
-        android:textAlignment="center"
-        android:textColor="#99BFDD" />
-
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/imgEditAvatar"
-        android:layout_width="225dp"
-        android:layout_height="143dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="90dp"
-        android:layout_marginEnd="94dp"
-        android:layout_marginBottom="411dp"
-        android:src="@drawable/avatar1" />
-
-    <TextView
-        android:id="@+id/txtChangeAvatar"
-        android:layout_width="101dp"
-        android:layout_height="33dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="161dp"
-        android:layout_marginEnd="149dp"
-        android:layout_marginBottom="376dp"
-        android:text="Change Avatar"
-        android:textColor="#F879A4"
-        android:textStyle="bold" />
-
-    <ImageView
-        android:id="@+id/imgBack"
-        android:layout_width="35dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="382dp"
-        android:layout_marginBottom="704dp"
-        app:srcCompat="@drawable/ic_back" />
-
-    <ImageView
-        android:id="@+id/imgEditBanner"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="143dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="0dp"
-        android:layout_marginBottom="557dp"
-        app:srcCompat="@drawable/banner2" />
+        android:layout_height="match_parent"
+        android:background="@color/black80"
+        tools:context=".view.fragments.EditProfileFragment">
 
-    <TextView
-        android:id="@+id/txtChangeBanner"
-        android:layout_width="115dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="279dp"
-        android:layout_marginEnd="17dp"
-        android:layout_marginBottom="567dp"
-        android:text="Change Banner"
-        android:textColor="#F879A4"
-        android:textSize="15sp"
-        android:textStyle="bold" />
-
-    <ImageView
-        android:id="@+id/imgChangeBanner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="135dp"
-        android:layout_marginBottom="564dp"
-        android:src="@drawable/ic_modify" />
-
-    <!-- Edit: Full name -->
-    <EditText
-        android:id="@+id/edtFullname"
-        android:layout_width="242dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginTop="360dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginBottom="326dp"
-        android:hint="Full name"
-        android:textSize="16sp"
-        android:textColor="@color/white" />
-
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="316dp"
-        android:layout_marginBottom="335dp"
-        android:text="Full name:"
-        android:textColor="@color/white"
-        android:textSize="16sp" />
-
-    <!-- Edit: Birthday-->
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="344dp"
-        android:layout_marginBottom="287dp"
-        android:text="Email:"
-        android:textColor="@color/white"
-        android:textSize="16sp" />
-
-    <TextView
-        android:id="@+id/edtEmail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="130dp"
-        android:layout_marginBottom="288dp"
-        android:text="user@example.com"
-        android:textColor="@color/white"
-        android:textSize="16sp" />
-
-    <EditText
-        android:id="@+id/edtBirthday"
-        android:layout_width="242dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginTop="456dp"
-        android:layout_marginEnd="33dp"
-        android:layout_marginBottom="230dp"
-        android:hint="Birthday"
-        android:textColor="@color/white"
-        android:textSize="16sp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="324dp"
-        android:layout_marginBottom="236dp"
-        android:text="Birthday:"
-        android:textColor="@color/white"
-        android:textSize="16sp" />
-
-    <!-- Edit: Phone-->
-
-    <EditText
-        android:id="@+id/edtPhone"
-        android:layout_width="242dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginTop="588dp"
-        android:layout_marginEnd="31dp"
-        android:layout_marginBottom="97dp"
-        android:hint="Phone"
-        android:textColor="@color/white"
-        android:textSize="16sp" />
-
-    <EditText
-        android:id="@+id/edtAddress"
-        android:layout_width="242dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginTop="521dp"
-        android:layout_marginEnd="34dp"
-        android:layout_marginBottom="165dp"
-        android:hint="Address"
-        android:textColor="@color/white"
-        android:textSize="16sp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="326dp"
-        android:layout_marginBottom="176dp"
-        android:text="Address:"
-        android:textColor="@color/white"
-        android:textSize="16sp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="335dp"
-        android:layout_marginBottom="108dp"
-        android:text="Phone:"
-        android:textColor="@color/white"
-        android:textSize="16sp" />
-
-    <ImageView
-        android:id="@+id/imgCalendar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="55dp"
-        android:layout_marginBottom="243dp"
-        android:src="@drawable/ic_calendar" />
-
-    <Button
-        android:id="@+id/btnSave"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="147dp"
-        android:layout_marginBottom="35dp"
-        android:backgroundTint="#DF3670"
-        android:text="Save" />
+        <!-- TODO: Update blank fragment layout -->
 
 
-</RelativeLayout>
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="237dp"
+            android:layout_height="24dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="64dp"
+            android:scrollbarSize="15sp"
+            android:text="View and Edit Profile"
+            android:textAlignment="center"
+            android:textColor="#99BFDD"
+            app:layout_constraintBottom_toBottomOf="@+id/imgBack"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/imgBack"
+            app:layout_constraintVertical_bias="0.333" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imgEditAvatar"
+            android:layout_width="225dp"
+            android:layout_height="143dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:src="@drawable/avatar1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.543"
+            app:layout_constraintStart_toStartOf="@+id/imgEditBanner"
+            app:layout_constraintTop_toBottomOf="@+id/imgEditBanner" />
+
+        <TextView
+            android:id="@+id/txtChangeAvatar"
+            android:layout_width="101dp"
+            android:layout_height="33dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:text="Change Avatar"
+            android:textColor="#F879A4"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/imgEditAvatar"
+            app:layout_constraintHorizontal_bias="0.572"
+            app:layout_constraintStart_toStartOf="@+id/imgEditAvatar"
+            app:layout_constraintTop_toBottomOf="@+id/imgEditAvatar" />
+
+        <!-- Edit: Full name -->
+
+        <ImageView
+            android:id="@+id/imgBack"
+            android:layout_width="53dp"
+            android:layout_height="33dp"
+            android:layout_marginEnd="364dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.008"
+            app:srcCompat="@drawable/ic_back" />
+
+        <ImageView
+            android:id="@+id/imgEditBanner"
+            android:layout_width="410dp"
+            android:layout_height="143dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.052"
+            app:srcCompat="@drawable/banner2"
+            tools:layout_editor_absoluteX="0dp" />
+
+        <TextView
+            android:id="@+id/txtChangeBanner"
+            android:layout_width="115dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="280dp"
+            android:text="Change Banner"
+            android:textColor="#F879A4"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/imgEditAvatar"
+            app:layout_constraintStart_toStartOf="@+id/imgEditBanner"
+            app:layout_constraintTop_toTopOf="@+id/imgEditBanner"
+            app:layout_constraintVertical_bias="0.778" />
+
+        <!-- Edit: Birthday-->
+
+        <!-- Edit: Phone-->
+
+        <ImageView
+            android:id="@+id/imgChangeBanner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="24dp"
+            android:src="@drawable/ic_modify"
+            app:layout_constraintBottom_toBottomOf="@+id/imgEditBanner"
+            app:layout_constraintEnd_toStartOf="@+id/txtChangeBanner"
+            app:layout_constraintHorizontal_bias="0.972"
+            app:layout_constraintStart_toStartOf="@+id/imgEditBanner" />
+
+        <EditText
+            android:id="@+id/edtFullname"
+            android:layout_width="242dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:hint="Full name"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.531"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtChangeAvatar"
+            app:layout_constraintVertical_bias="0.052" />
+
+        <TextView
+            android:id="@+id/txtEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="40dp"
+            android:text="user@example.com"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="@+id/edtFullname"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/edtFullname"
+            app:layout_constraintTop_toBottomOf="@+id/edtFullname" />
+
+        <EditText
+            android:id="@+id/edtBirthday"
+            android:layout_width="242dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="24dp"
+            android:hint="Birthday"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.531"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtEmail" />
+
+        <EditText
+            android:id="@+id/edtPhone"
+            android:layout_width="242dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="16dp"
+            android:hint="Phone"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="@+id/edtAddress"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/edtAddress"
+            app:layout_constraintTop_toBottomOf="@+id/edtAddress" />
+
+        <EditText
+            android:id="@+id/edtAddress"
+            android:layout_width="242dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="20dp"
+            android:hint="Address"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="@+id/edtBirthday"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/edtBirthday"
+            app:layout_constraintTop_toBottomOf="@+id/edtBirthday" />
+
+        <ImageView
+            android:id="@+id/imgCalendar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="16dp"
+            android:src="@drawable/ic_calendar"
+            app:layout_constraintBottom_toBottomOf="@+id/edtBirthday"
+            app:layout_constraintEnd_toEndOf="@+id/edtBirthday" />
+
+        <Button
+            android:id="@+id/btnSave"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="84dp"
+            android:backgroundTint="#DF3670"
+            android:text="Save"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/edtPhone" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

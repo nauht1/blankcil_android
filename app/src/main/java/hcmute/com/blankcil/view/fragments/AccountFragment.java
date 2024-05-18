@@ -9,6 +9,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -24,7 +27,7 @@ import hcmute.com.blankcil.utils.SharedPrefManager;
 
 public class AccountFragment extends Fragment implements View.OnClickListener {
     ImageView imgBanner, imgAvatar;
-    TextView txtNumberOfPodcast, txtUsername;
+    TextView txtNumberOfPodcast, txtUsername, txtEmail;
     Button btnEdit;
     RecyclerView recyclerView;
     @Override
@@ -37,10 +40,13 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
         txtUsername = view.findViewById(R.id.txtUsername);
         txtNumberOfPodcast = view.findViewById(R.id.txtNumberOfPodcasts);
         recyclerView = view.findViewById(R.id.recyclerviewPodcast);
+        txtEmail = view.findViewById(R.id.txtEmailProfile);
+        btnEdit = view.findViewById(R.id.btnEditProfile);
 
         UserModel userModel = SharedPrefManager.getInstance(getContext()).getUserModel();
         if(userModel!=null){
             txtUsername.setText(userModel.getFullname());
+            txtEmail.setText(userModel.getEmail());
             List<PodcastModel> podcastModelList = userModel.getPodcasts();
             int numberofPodcasts = podcastModelList.size();
             txtNumberOfPodcast.setText(String.valueOf(numberofPodcasts));
@@ -69,13 +75,22 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
                         .into(imgBanner);
             }
         }
-//        btnEdit.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//            }
-//        });
+
+        btnEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                hideEditButton();
+                FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+                transaction.replace(R.id.container, new EditProfileFragment()); // 'container' là ID của ViewGroup chứa Fragment trong Activity
+                transaction.addToBackStack(null); // Lưu lịch sử fragment
+                transaction.commit(); // Thực hiện transaction
+            }
+        });
         return  view;
+    }
+
+    private void hideEditButton() {
+        btnEdit.setVisibility(View.GONE);
     }
 
     @Override
