@@ -10,6 +10,7 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -18,6 +19,7 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
@@ -46,6 +48,7 @@ public class CommentsBottomSheet extends BottomSheetDialogFragment {
     private List<CommentModel> commentList;
     private EditText commentInput;
     private ImageButton btnSendComment;
+    private ImageView avatarImage;
     private Interface.OnCommentCountChangeListener commentCountChangeListener;
     private int currentPage = 0;
     private boolean isLoading = false;
@@ -78,6 +81,10 @@ public class CommentsBottomSheet extends BottomSheetDialogFragment {
 
         commentInput = view.findViewById(R.id.commentInput);
         btnSendComment = view.findViewById(R.id.btnSendComment);
+        avatarImage = view.findViewById(R.id.userAvatar);
+
+        String avatarUrl = SharedPrefManager.getInstance(getContext()).getUserModel().getAvatar_url();
+        Glide.with(getContext()).load(avatarUrl).into(avatarImage);
 
         commentList = new ArrayList<>();
         commentAdapter = new CommentAdapter(getContext(), commentList);
