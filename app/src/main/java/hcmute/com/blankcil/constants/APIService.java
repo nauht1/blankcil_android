@@ -102,7 +102,7 @@ public interface APIService {
     );
 
     @GET("users/profile/{id}")
-    Call<UserModel> getProfile(
+    Call<ResponseModel<UserModel>> getProfile(
             @Path("id") int id
     );
 }

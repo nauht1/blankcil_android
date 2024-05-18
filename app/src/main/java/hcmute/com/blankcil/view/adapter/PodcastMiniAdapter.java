@@ -42,7 +42,10 @@ public class PodcastMiniAdapter extends RecyclerView.Adapter<PodcastMiniAdapter.
 
     @Override
     public int getItemCount() {
-        return podcasts.size();
+        if (podcasts != null) {
+            return podcasts.size();
+        }
+        return 0;
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {

@@ -14,6 +14,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -24,11 +26,13 @@ import java.util.List;
 import hcmute.com.blankcil.R;
 import hcmute.com.blankcil.config.RetrofitClient;
 import hcmute.com.blankcil.constants.APIService;
+import hcmute.com.blankcil.constants.Interface;
 import hcmute.com.blankcil.model.CommentModel;
 import hcmute.com.blankcil.model.CommentResponse;
 import hcmute.com.blankcil.model.PodcastModel;
 import hcmute.com.blankcil.model.ResponseModel;
 import hcmute.com.blankcil.utils.SharedPrefManager;
+import hcmute.com.blankcil.view.fragments.ProfileFragment;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -37,10 +41,11 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
     private Context context;
     private List<CommentModel> commentList;
     private APIService apiService;
-
-    public CommentAdapter(Context context, List<CommentModel> commentList) {
+    private Interface.OnAvatarClickListener onAvatarClickListener;
+    public CommentAdapter(Context context, List<CommentModel> commentList, Interface.OnAvatarClickListener listener) {
         this.context = context;
         this.commentList = commentList;
+        this.onAvatarClickListener = listener;
     }
 
     public void setComment(List<CommentModel> commentList) {
@@ -73,6 +78,12 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
 
         holder.btnReplyComment.setOnClickListener(v -> {
             // Handle reply comment action
+        });
+
+        holder.userAvatar.setOnClickListener(v -> {
+            if (onAvatarClickListener != null) {
+                onAvatarClickListener.onAvatarClick(comment.getUser_comment().getId());
+            }
         });
 
         // Handle replies
@@ -130,6 +141,10 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
             likeCount = itemView.findViewById(R.id.likeCount);
             replyCount = itemView.findViewById(R.id.replyCount);
         }
+    }
+
+    public interface OnAvatarClickListener {
+        void onAvatarClick(int userId);
     }
 
     private void sendLikeRequest(CommentModel comment, TextView likeCount, ImageButton btnLikeComment) {
