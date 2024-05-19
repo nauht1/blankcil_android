@@ -2,7 +2,10 @@ package hcmute.com.blankcil.view.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -42,8 +45,68 @@ public class EmailConfirmationActivity extends AppCompatActivity implements View
         ec6 = findViewById(R.id.etCode6);
         verifyBtn = findViewById(R.id.btnVerify);
         verifyBtn.setOnClickListener(this);
+        setupEditTextListeners();
+    }
+    private void setupEditTextListeners() {
+        ec1.addTextChangedListener(new GenericTextWatcher(ec1, ec2));
+        ec2.addTextChangedListener(new GenericTextWatcher(ec2, ec3));
+        ec3.addTextChangedListener(new GenericTextWatcher(ec3, ec4));
+        ec4.addTextChangedListener(new GenericTextWatcher(ec4, ec5));
+        ec5.addTextChangedListener(new GenericTextWatcher(ec5, ec6));
+        ec6.addTextChangedListener(new GenericTextWatcher(ec6, null));
+
+        ec1.setOnKeyListener(new GenericKeyListener(null, ec1));
+        ec2.setOnKeyListener(new GenericKeyListener(ec1, ec2));
+        ec3.setOnKeyListener(new GenericKeyListener(ec2, ec3));
+        ec4.setOnKeyListener(new GenericKeyListener(ec3, ec4));
+        ec5.setOnKeyListener(new GenericKeyListener(ec4, ec5));
+        ec6.setOnKeyListener(new GenericKeyListener(ec5, ec6));
     }
 
+    private class GenericTextWatcher implements TextWatcher {
+        private View currentView;
+        private View nextView;
+
+        public GenericTextWatcher(View currentView, View nextView) {
+            this.currentView = currentView;
+            this.nextView = nextView;
+        }
+
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            if (charSequence.length() == 1) {
+                if (nextView != null) {
+                    nextView.requestFocus();
+                }
+            }
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) { }
+    }
+
+    private class GenericKeyListener implements View.OnKeyListener {
+        private View previousView;
+        private View currentView;
+
+        public GenericKeyListener(View previousView, View currentView) {
+            this.previousView = previousView;
+            this.currentView = currentView;
+        }
+
+        @Override
+        public boolean onKey(View v, int keyCode, KeyEvent event) {
+            if (keyCode == KeyEvent.KEYCODE_DEL && event.getAction() == KeyEvent.ACTION_DOWN) {
+                if (((EditText) currentView).getText().toString().isEmpty() && previousView != null) {
+                    previousView.requestFocus();
+                }
+            }
+            return false;
+        }
+    }
     @Override
     public void onClick(View v) {
         confirm();

@@ -65,7 +65,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
         RegisterRequest registerRequest = new RegisterRequest(fullName, userEmail, userPassword);
 
-        if (registerRequest.isValidEmail() && registerRequest.isValidEmail()) {
+        if (registerRequest.isValidEmail() && registerRequest.isValidPassword()) {
             apiService.register(registerRequest).enqueue(new Callback<RegisterResponse>() {
                 @Override
                 public void onResponse(Call<RegisterResponse> call, Response<RegisterResponse> response) {
@@ -90,6 +90,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     Log.d("Register", "Register failed: " + t.getMessage());
                 }
             });
+        }
+        else {
+            Toast.makeText(this, "Email hoặc mật khẩu không hợp lệ. \n Yêu cầu mật khẩu dài ít nhất 6 ký tự", Toast.LENGTH_SHORT).show();
         }
     }
 }

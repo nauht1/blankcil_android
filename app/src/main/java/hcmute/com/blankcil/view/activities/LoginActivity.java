@@ -68,28 +68,33 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         String userPassword = password.getText().toString().trim();
 
         AuthenticateRequest authenticateRequest = new AuthenticateRequest(userEmail, userPassword);
-        apiService.authenticate(authenticateRequest).enqueue(new Callback<AuthenticateResponse>() {
-            @Override
-            public void onResponse(retrofit2.Call<AuthenticateResponse> call, Response<AuthenticateResponse> response) {
-                if (response.isSuccessful()) {
-                    if (response.body() != null) {
-                        String accessToken = response.body().getAccess_token();
-                        String refreshToken = response.body().getRefresh_token();
-                        SharedPrefManager.getInstance(LoginActivity.this).saveTokens(accessToken, refreshToken);
-                        getUserProfile(accessToken);
-                    }
+        if (authenticateRequest.isValidEmail() && authenticateRequest.isValidPassword()) {
+            apiService.authenticate(authenticateRequest).enqueue(new Callback<AuthenticateResponse>() {
+                @Override
+                public void onResponse(retrofit2.Call<AuthenticateResponse> call, Response<AuthenticateResponse> response) {
+                    if (response.isSuccessful()) {
+                        if (response.body() != null) {
+                            String accessToken = response.body().getAccess_token();
+                            String refreshToken = response.body().getRefresh_token();
+                            SharedPrefManager.getInstance(LoginActivity.this).saveTokens(accessToken, refreshToken);
+                            getUserProfile(accessToken);
+                        }
 //                    Toast.makeText(LoginActivity.this, response.body().getAccess_token(), Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        Toast.makeText(LoginActivity.this, "Request failed", Toast.LENGTH_SHORT).show();
+                    }
                 }
-                else {
-                    Toast.makeText(LoginActivity.this, "Request failed", Toast.LENGTH_SHORT).show();
-                }
-            }
 
-            @Override
-            public void onFailure(retrofit2.Call<AuthenticateResponse> call, Throwable t) {
-                Log.d("Login", "Login failed" + t.getMessage());
-            }
-        });
+                @Override
+                public void onFailure(retrofit2.Call<AuthenticateResponse> call, Throwable t) {
+                    Log.d("Login", "Login failed" + t.getMessage());
+                }
+            });
+        }
+        else {
+            Toast.makeText(this, "Email hoặc mật khẩu không hợp lệ. \n Yêu cầu mật khẩu dài ít nhất 6 ký tự", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void getUserProfile(String accessToken) {
