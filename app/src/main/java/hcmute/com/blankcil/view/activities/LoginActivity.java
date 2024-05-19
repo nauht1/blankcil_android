@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -28,19 +29,31 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     EditText email, password;
     Button loginBtn;
     private APIService apiService;
+    TextView textViewRegister;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         RetrofitClient retrofitClient = RetrofitClient.getInstance();
         apiService = retrofitClient.getApi();
-        checkLoginStatus();
+//        checkLoginStatus();
 
         setContentView(R.layout.activity_login);
 
         email = findViewById(R.id.edtLoginEmail);
         password = findViewById(R.id.edtLoginPassword);
         loginBtn = findViewById(R.id.loginBtn);
+        textViewRegister = findViewById(R.id.textViewRegister);
+
+        textViewRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                finish();
+            }
+        });
 
         loginBtn.setOnClickListener(this);
     }
@@ -65,7 +78,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         SharedPrefManager.getInstance(LoginActivity.this).saveTokens(accessToken, refreshToken);
                         getUserProfile(accessToken);
                     }
-                    Toast.makeText(LoginActivity.this, response.body().getAccess_token(), Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(LoginActivity.this, response.body().getAccess_token(), Toast.LENGTH_SHORT).show();
                 }
                 else {
                     Toast.makeText(LoginActivity.this, "Request failed", Toast.LENGTH_SHORT).show();

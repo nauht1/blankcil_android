@@ -39,14 +39,15 @@
     <EditText
         android:id="@+id/edtFullName"
         android:layout_width="350dp"
-        android:layout_height="55dp"
+        android:layout_height="50dp"
         android:layout_marginTop="60dp"
         android:layout_marginBottom="10dp"
         android:background="@color/white"
-        android:backgroundTint="@color/white"
+        android:textColor="@color/black80"
         android:hint="Full Name"
         android:paddingStart="10dp"
         android:textSize="20dp"
+        android:textColorHint="@color/black80"
         app:layout_constraintBottom_toTopOf="@+id/edtRegEmail"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.491"
@@ -56,13 +57,15 @@
     <EditText
         android:id="@+id/edtRegEmail"
         android:layout_width="350dp"
-        android:layout_height="55dp"
+        android:layout_height="50dp"
         android:layout_marginTop="25dp"
         android:background="@color/white"
         android:backgroundTint="@color/white"
         android:hint="Email"
         android:paddingStart="10dp"
+        android:textColor="@color/black80"
         android:textSize="20dp"
+        android:textColorHint="@color/black80"
         app:layout_constraintBottom_toTopOf="@id/edtPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.491"
@@ -87,6 +90,7 @@
             android:hint="Password"
             android:inputType="textPassword"
             android:paddingStart="10dp"
+            android:textColor="@color/white"
             android:textSize="20dp" />
     </com.google.android.material.textfield.TextInputLayout>
 

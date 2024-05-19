@@ -2,6 +2,7 @@ package hcmute.com.blankcil.view.fragments;
 
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,9 +24,11 @@ import java.util.Objects;
 import hcmute.com.blankcil.R;
 import hcmute.com.blankcil.config.RetrofitClient;
 import hcmute.com.blankcil.constants.APIService;
+import hcmute.com.blankcil.constants.Interface;
 import hcmute.com.blankcil.model.PodcastModel;
 import hcmute.com.blankcil.model.SearchResponse;
 import hcmute.com.blankcil.model.UserModel;
+import hcmute.com.blankcil.view.activities.MainActivity;
 import hcmute.com.blankcil.view.adapter.PodcastAdapter;
 import hcmute.com.blankcil.view.adapter.PodcastMiniAdapter;
 import hcmute.com.blankcil.view.adapter.UserMiniAdapter;
@@ -33,7 +36,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class SearchFragment extends Fragment {
+public class SearchFragment extends Fragment implements Interface.OnAvatarClickListener {
     private SearchView searchView;
     private RecyclerView usersRecyclerView;
     private RecyclerView podcastsRecyclerView;
@@ -60,7 +63,7 @@ public class SearchFragment extends Fragment {
         podcastsRecyclerView = view.findViewById(R.id.podcasts_recycler_view);
 
         usersRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        usersAdapter = new UserMiniAdapter();
+        usersAdapter = new UserMiniAdapter(this::onAvatarClick);
         usersRecyclerView.setAdapter(usersAdapter);
 
         podcastsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -83,6 +86,15 @@ public class SearchFragment extends Fragment {
                 return false;
             }
         });
+    }
+
+    @Override
+    public void onAvatarClick(int userId) {
+        MainActivity mainActivity = (MainActivity) getActivity();
+        if (mainActivity != null) {
+            Log.d("SearchFragment", "OnAvatarClick");
+            mainActivity.openProfileFragment(userId);
+        }
     }
 
     private void performSearch(String query) {

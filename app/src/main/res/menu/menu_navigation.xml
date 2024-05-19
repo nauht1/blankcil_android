@@ -14,8 +14,8 @@
         android:enabled="false"/>
     <item
         android:id="@+id/chatTab"
-        android:title="Chat"
-        android:icon="@drawable/ic_chat"/>
+        android:title="Notification"
+        android:icon="@drawable/ic_notification"/>
     <item
         android:id="@+id/userTab"
         android:title="User"

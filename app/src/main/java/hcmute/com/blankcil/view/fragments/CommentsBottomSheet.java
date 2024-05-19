@@ -16,6 +16,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -34,12 +36,13 @@ import hcmute.com.blankcil.model.CommentModel;
 import hcmute.com.blankcil.model.CommentResponse;
 import hcmute.com.blankcil.model.ResponseModel;
 import hcmute.com.blankcil.utils.SharedPrefManager;
+import hcmute.com.blankcil.view.activities.MainActivity;
 import hcmute.com.blankcil.view.adapter.CommentAdapter;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class CommentsBottomSheet extends BottomSheetDialogFragment {
+public class CommentsBottomSheet extends BottomSheetDialogFragment implements CommentAdapter.OnAvatarClickListener {
     private final String TAG = "CommentBottomSheet";
     private RecyclerView recyclerView;
     private CommentAdapter commentAdapter;
@@ -53,6 +56,7 @@ public class CommentsBottomSheet extends BottomSheetDialogFragment {
     private int currentPage = 0;
     private boolean isLoading = false;
     private boolean isLastPage = false;
+    private String accessToken;
 
     public static CommentsBottomSheet newInstance(int podcastId) {
         CommentsBottomSheet fragment = new CommentsBottomSheet();
@@ -74,6 +78,7 @@ public class CommentsBottomSheet extends BottomSheetDialogFragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        accessToken = SharedPrefManager.getInstance(getContext()).getAccessToken();
         super.onViewCreated(view, savedInstanceState);
 
         recyclerView = view.findViewById(R.id.recyclerViewComments);
@@ -87,7 +92,7 @@ public class CommentsBottomSheet extends BottomSheetDialogFragment {
         Glide.with(getContext()).load(avatarUrl).into(avatarImage);
 
         commentList = new ArrayList<>();
-        commentAdapter = new CommentAdapter(getContext(), commentList);
+        commentAdapter = new CommentAdapter(getContext(), commentList, this::onAvatarClick);
         recyclerView.setAdapter(commentAdapter);
 
         apiService = RetrofitClient.getInstance().getApi();
@@ -124,7 +129,7 @@ public class CommentsBottomSheet extends BottomSheetDialogFragment {
 
     private void loadComments(int page) {
         isLoading = true;
-        apiService.getCommentsForPodcast(podcastId, page).enqueue(new Callback<CommentResponse>() {
+        apiService.getCommentsForPodcast("Bearer " + accessToken, podcastId, page).enqueue(new Callback<CommentResponse>() {
             @Override
             public void onResponse(Call<CommentResponse> call, Response<CommentResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
@@ -154,7 +159,6 @@ public class CommentsBottomSheet extends BottomSheetDialogFragment {
         });
     }
     private void sendComment(String content) {
-        String accessToken = SharedPrefManager.getInstance(getContext()).getAccessToken();
         apiService.commentOnPodcast("Bearer " + accessToken, content, podcastId).enqueue(new Callback<ResponseModel<CommentModel>>() {
             @Override
             public void onResponse(Call<ResponseModel<CommentModel>> call, Response<ResponseModel<CommentModel>> response) {
@@ -179,5 +183,20 @@ public class CommentsBottomSheet extends BottomSheetDialogFragment {
                 Toast.makeText(getContext(), "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    @Override
+    public void onAvatarClick(int userId) {
+        MainActivity mainActivity = (MainActivity) getActivity();
+        if (mainActivity != null) {
+            mainActivity.openProfileFragment(userId);
+            dismiss(); // Đóng CommentsBottomSheet sau khi chuyển đổi fragment
+        }
+//        ProfileFragment profileFragment = ProfileFragment.newInstance(userId);
+//        FragmentManager fragmentManager = getParentFragmentManager();
+//        fragmentManager.beginTransaction()
+//                .replace(R.id.fragment_container, profileFragment)  // Make sure to replace 'R.id.fragment_container' with the actual ID of your container
+//                .addToBackStack(null)
+//                .commit();
     }
 }

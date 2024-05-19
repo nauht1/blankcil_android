@@ -18,8 +18,11 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationBarView;
 
 import hcmute.com.blankcil.R;
+import hcmute.com.blankcil.view.adapter.PodcastAdapter;
 import hcmute.com.blankcil.view.adapter.ViewPagerAdapter;
 import hcmute.com.blankcil.view.fragments.CreatePodcastFragment;
+import hcmute.com.blankcil.view.fragments.HomeFragment;
+import hcmute.com.blankcil.view.fragments.ProfileFragment;
 
 public class MainActivity extends AppCompatActivity {
     private ViewPager2 mViewPager;
@@ -31,6 +34,16 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        getSupportFragmentManager().addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
+            @Override
+            public void onBackStackChanged() {
+                if (getSupportFragmentManager().getBackStackEntryCount() == 0) {
+                    // Hiển thị lại nút fabCreatePodcast khi fragment được đóng
+                    fabCreatePodcast.setVisibility(View.VISIBLE);
+                }
+            }
+        });
 
         mViewPager = findViewById(R.id.viewPager);
         mBottomNavigationView = findViewById(R.id.bottomNav);
@@ -100,5 +113,26 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
+    }
+    public void replaceFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, fragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+    }
+
+    public void openProfileFragment(int userId) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.popBackStack(); // Xóa HomeFragment khỏi ngăn xếp fragment trước khi thêm ProfileFragment
+
+        // Dừng video trước khi thêm ProfileFragment
+        HomeFragment homeFragment = (HomeFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+        if (homeFragment != null) {
+            homeFragment.stopVideos();
+        }
+
+        Fragment profileFragment = ProfileFragment.newInstance(userId);
+        replaceFragment(profileFragment);
     }
 }

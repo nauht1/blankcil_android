@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.VideoView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,15 +17,17 @@ import java.util.List;
 import hcmute.com.blankcil.R;
 import hcmute.com.blankcil.config.RetrofitClient;
 import hcmute.com.blankcil.constants.APIService;
+import hcmute.com.blankcil.constants.Interface;
 import hcmute.com.blankcil.model.PodcastModel;
 import hcmute.com.blankcil.model.PodcastResponse;
 import hcmute.com.blankcil.utils.SharedPrefManager;
+import hcmute.com.blankcil.view.activities.MainActivity;
 import hcmute.com.blankcil.view.adapter.PodcastAdapter;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements Interface.OnAvatarClickListener {
     private ViewPager2 viewPager2;
     private PodcastAdapter podcastAdapter;
     private List<PodcastModel> podcastList;
@@ -41,7 +44,7 @@ public class HomeFragment extends Fragment {
         // Khởi tạo danh sách podcast
         podcastList = new ArrayList<>();
         // Khởi tạo adapter và gắn adapter vào ViewPager2
-        podcastAdapter = new PodcastAdapter(getContext(), podcastList);
+        podcastAdapter = new PodcastAdapter(getContext(), podcastList, this::onAvatarClick);
         viewPager2.setAdapter(podcastAdapter);
         viewPager2.setOrientation(ViewPager2.ORIENTATION_VERTICAL);
 
@@ -68,6 +71,14 @@ public class HomeFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onAvatarClick(int userId) {
+        MainActivity mainActivity = (MainActivity) getActivity();
+        if (mainActivity != null) {
+            mainActivity.openProfileFragment(userId);
+        }
+    }
+
     private void fetchPodcasts(int page, String accessToken) {
         apiService.getPodcasts("Bearer " + accessToken, page, true).enqueue(new Callback<PodcastResponse>() {
             @Override
@@ -87,5 +98,31 @@ public class HomeFragment extends Fragment {
                 Log.d("fetchPodcasts", "Request failed: " + t.getMessage());
             }
         });
+    }
+    @Override
+    public void onStop() {
+        super.onStop();
+        Log.d("HomeFragment", "onStop called");
+        if (viewPager2 != null && viewPager2.getAdapter() != null) {
+            for (int i = 0; i < viewPager2.getChildCount(); i++) {
+                View child = viewPager2.getChildAt(i);
+                VideoView videoView = child.findViewById(R.id.videoView);
+                if (videoView != null && videoView.isPlaying()) {
+                    videoView.pause();
+                }
+            }
+        }
+    }
+
+    public void stopVideos() {
+        if (viewPager2 != null && viewPager2.getAdapter() != null) {
+            for (int i = 0; i < viewPager2.getChildCount(); i++) {
+                View child = viewPager2.getChildAt(i);
+                VideoView videoView = child.findViewById(R.id.videoView);
+                if (videoView != null && videoView.isPlaying()) {
+                    videoView.pause();
+                }
+            }
+        }
     }
 }

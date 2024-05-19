@@ -38,10 +38,20 @@ public class PodcastAdapter extends RecyclerView.Adapter<PodcastAdapter.PodcastV
     private List<PodcastModel> podcastList;
     private APIService apiService;
     private Interface.OnCommentCountChangeListener commentCountChangeListener;
-
+    private Interface.OnAvatarClickListener avatarClickListener;
     public PodcastAdapter(Context context, List<PodcastModel> podcastList) {
         this.context = context;
         this.podcastList = podcastList;
+    }
+
+    public PodcastAdapter(Context context, List<PodcastModel> podcastList, Interface.OnAvatarClickListener listener) {
+        this.context = context;
+        this.podcastList = podcastList;
+        this.avatarClickListener = listener;
+    }
+
+    public void setOnAvatarClickListener(Interface.OnAvatarClickListener listener) {
+        this.avatarClickListener = listener;
     }
 
     public void setOnCommentCountChangeListener(Interface.OnCommentCountChangeListener listener) {
@@ -85,11 +95,7 @@ public class PodcastAdapter extends RecyclerView.Adapter<PodcastAdapter.PodcastV
         holder.videoView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (holder.videoView.isPlaying()) {
-                    holder.videoView.pause();
-                } else {
-                    holder.videoView.start();
-                }
+                handleVideo(holder.videoView);
             }
         });
 
@@ -99,6 +105,15 @@ public class PodcastAdapter extends RecyclerView.Adapter<PodcastAdapter.PodcastV
                 holder.videoView.setMediaController(new MediaController(context));
                 holder.videoView.requestFocus();
                 mp.start();
+            }
+        });
+
+        holder.imUserAvatar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (avatarClickListener != null) {
+                    avatarClickListener.onAvatarClick(podcast.getUser_podcast().getId());
+                }
             }
         });
 
@@ -121,6 +136,14 @@ public class PodcastAdapter extends RecyclerView.Adapter<PodcastAdapter.PodcastV
             });
             commentsBottomSheet.show(((FragmentActivity) context).getSupportFragmentManager(), commentsBottomSheet.getTag());
         });
+    }
+
+    public void handleVideo(VideoView videoView) {
+        if (videoView.isPlaying()) {
+            videoView.pause();
+        } else {
+            videoView.start();
+        }
     }
 
     @Override
