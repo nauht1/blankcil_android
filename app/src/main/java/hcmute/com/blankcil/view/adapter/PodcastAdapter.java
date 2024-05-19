@@ -1,12 +1,14 @@
 package hcmute.com.blankcil.view.adapter;
 
 import android.content.Context;
+import android.media.Image;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.MediaController;
@@ -14,6 +16,7 @@ import android.widget.TextView;
 import android.widget.VideoView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -92,10 +95,16 @@ public class PodcastAdapter extends RecyclerView.Adapter<PodcastAdapter.PodcastV
             }
         });
 
+        holder.pauseToggle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                handleVideo(holder.videoView, holder.pauseToggle);
+            }
+        });
         holder.videoView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                handleVideo(holder.videoView);
+                handleVideo(holder.videoView, holder.pauseToggle);
             }
         });
 
@@ -138,11 +147,13 @@ public class PodcastAdapter extends RecyclerView.Adapter<PodcastAdapter.PodcastV
         });
     }
 
-    public void handleVideo(VideoView videoView) {
+    public void handleVideo(VideoView videoView, CardView pauseToggle) {
         if (videoView.isPlaying()) {
             videoView.pause();
+            pauseToggle.setVisibility(View.VISIBLE);
         } else {
             videoView.start();
+            pauseToggle.setVisibility(View.GONE);
         }
     }
 
@@ -159,7 +170,7 @@ public class PodcastAdapter extends RecyclerView.Adapter<PodcastAdapter.PodcastV
         private TextView textTitle, textContent, likeCount, commentCount, textUserFullname;
         private ImageButton imLike, imComment, imShare;
         private ImageView imUserAvatar;
-
+        private CardView pauseToggle;
         public PodcastViewHolder(@NonNull View itemView) {
             super(itemView);
             videoView = itemView.findViewById(R.id.videoView);
@@ -172,6 +183,7 @@ public class PodcastAdapter extends RecyclerView.Adapter<PodcastAdapter.PodcastV
             imShare = itemView.findViewById(R.id.btnShareLink);
             textUserFullname = itemView.findViewById(R.id.user_fullname);
             imUserAvatar = itemView.findViewById(R.id.user_avatar);
+            pauseToggle = itemView.findViewById(R.id.pauseToggle);
         }
     }
 

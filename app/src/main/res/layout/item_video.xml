@@ -167,4 +167,25 @@
                 android:padding="8dp"/>
         </androidx.cardview.widget.CardView>
     </LinearLayout>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardElevation="4dp"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        app:cardBackgroundColor="@android:color/white"
+        app:cardCornerRadius="20dp"
+        android:id="@+id/pauseToggle"
+        android:visibility="gone">
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:background="?attr/selectableItemBackground"
+            android:src="@drawable/ic_pause" />
+    </androidx.cardview.widget.CardView>
+
 </RelativeLayout>
