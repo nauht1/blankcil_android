@@ -4,6 +4,7 @@ import hcmute.com.blankcil.model.AuthenticateRequest;
 import hcmute.com.blankcil.model.AuthenticateResponse;
 import hcmute.com.blankcil.model.CommentModel;
 import hcmute.com.blankcil.model.CommentResponse;
+import hcmute.com.blankcil.model.LogoutResponse;
 import hcmute.com.blankcil.model.PodcastModel;
 import hcmute.com.blankcil.model.SearchResponse;
 import hcmute.com.blankcil.model.ConfirmRequest;
@@ -15,6 +16,7 @@ import hcmute.com.blankcil.model.ResponseModel;
 import hcmute.com.blankcil.model.UserModel;
 import okhttp3.MultipartBody;
 import retrofit2.Call;
+import retrofit2.Response;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -62,6 +64,11 @@ public interface APIService {
 
     @POST("auth/refresh-token")
     Call<AuthenticateResponse> refreshToken(
+            @Header("Authorization") String token
+    );
+
+    @POST("auth/logout")
+    Call<LogoutResponse> logout(
             @Header("Authorization") String token
     );
 

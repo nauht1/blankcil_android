@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/black80"
     android:padding="16dp">
 
     <!-- Nút đóng fragment -->
@@ -25,12 +26,16 @@
         android:id="@+id/selectImageButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textColor="@color/white"
         android:text="Select Image" />
 
     <Button
         android:id="@+id/selectAudioButton"
+        android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/white"
         android:text="Select Audio" />
 
     <TextView
@@ -39,24 +44,32 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/selectAudioButton"
         android:layout_marginTop="16dp"
+        android:textColor="@color/white"
         android:text="No audio selected"
         android:textSize="16sp" />
 
     <EditText
         android:id="@+id/titleEditText"
+        android:textColorHint="@color/white"
+        android:textColor="@color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Title" />
 
     <EditText
+        android:textColorHint="@color/white"
         android:id="@+id/contentEditText"
+        android:textColor="@color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Content" />
 
     <Button
         android:id="@+id/createPodcastButton"
+        android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/red_pink"
         android:text="Create Podcast" />
 </LinearLayout>

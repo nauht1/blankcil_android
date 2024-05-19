@@ -78,7 +78,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         SharedPrefManager.getInstance(LoginActivity.this).saveTokens(accessToken, refreshToken);
                         getUserProfile(accessToken);
                     }
-                    Toast.makeText(LoginActivity.this, response.body().getAccess_token(), Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(LoginActivity.this, response.body().getAccess_token(), Toast.LENGTH_SHORT).show();
                 }
                 else {
                     Toast.makeText(LoginActivity.this, "Request failed", Toast.LENGTH_SHORT).show();

@@ -103,12 +103,23 @@
         android:text="View and Edit Profile"
         android:textAllCaps="false" />
 
+    <Button
+        android:id="@+id/btnLogout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btnEditProfile"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="#F32A6F"
+        android:text="Logout"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white" />
+
     <!-- RecyclerView for Podcasts -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerviewPodcast"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/btnEditProfile"
+        android:layout_below="@id/btnLogout"
         android:clipToPadding="false"
         android:padding="8dp" />
 

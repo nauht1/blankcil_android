@@ -1,5 +1,6 @@
 package hcmute.com.blankcil.view.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -8,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
@@ -22,18 +24,28 @@ import java.io.File;
 import java.util.List;
 
 import hcmute.com.blankcil.R;
+import hcmute.com.blankcil.config.RetrofitClient;
+import hcmute.com.blankcil.constants.APIService;
+import hcmute.com.blankcil.model.LogoutResponse;
 import hcmute.com.blankcil.model.PodcastModel;
+import hcmute.com.blankcil.model.ResponseModel;
 import hcmute.com.blankcil.model.UserModel;
 import hcmute.com.blankcil.utils.SharedPrefManager;
+import hcmute.com.blankcil.view.activities.EmailConfirmationActivity;
+import hcmute.com.blankcil.view.activities.LoginActivity;
 import hcmute.com.blankcil.view.adapter.PodcastMiniAdapter;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class AccountFragment extends Fragment implements View.OnClickListener {
     ImageView imgBanner, imgAvatar;
     TextView txtNumberOfPodcast, txtUsername, txtEmail;
-    Button btnEdit;
+    Button btnEdit, btnLogout;
     RecyclerView recyclerView;
     private PodcastMiniAdapter podcastMiniAdapter;
+    private APIService apiService;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -50,6 +62,14 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         podcastMiniAdapter = new PodcastMiniAdapter();
         recyclerView.setAdapter(podcastMiniAdapter);
+        btnLogout = view.findViewById(R.id.btnLogout);
+        btnLogout.setVisibility(View.VISIBLE);
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                logoutUser();
+            }
+        });
 
         UserModel userModel = SharedPrefManager.getInstance(getContext()).getUserModel();
         if(userModel!=null){
@@ -103,10 +123,37 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
 
     private void hideEditButton() {
         btnEdit.setVisibility(View.GONE);
+        btnLogout.setVisibility(View.GONE);
     }
 
     @Override
     public void onClick(View v) {
 
+    }
+
+    private void logoutUser() {
+        String token = SharedPrefManager.getInstance(getContext()).getAccessToken();
+        RetrofitClient retrofitClient = RetrofitClient.getInstance();
+        apiService = retrofitClient.getApi();
+        apiService.logout("Bearer " + token).enqueue(new Callback<LogoutResponse>() {
+            @Override
+            public void onResponse(Call<LogoutResponse> call, Response<LogoutResponse> response) {
+                if (response.isSuccessful()) {
+                    SharedPrefManager.getInstance(getContext()).clear();
+                    Toast.makeText(getContext(), "Logged out successfully", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getActivity(), LoginActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(getContext(), "Logout failed", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<LogoutResponse> call, Throwable t) {
+                Toast.makeText(getContext(), "An error occurred" + t.getMessage(), Toast.LENGTH_SHORT).show();
+                Log.d("AccountFragment", "MSG" + t.getMessage());
+            }
+        });
     }
 }

@@ -214,6 +214,16 @@ public class EditProfileFragment extends Fragment {
                     Toast.makeText(activity, "Update profile successfully!", Toast.LENGTH_SHORT).show();
                     loadUserProfile(SharedPrefManager.getInstance(getContext()));
                     SharedPrefManager.getInstance(getContext()).saveUserModel(response.body().getBody());
+                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+
+                    // Xác định Fragment AccountFragment
+                    Fragment accountFragment = new AccountFragment();
+
+                    // Thay thế Fragment hiện tại bằng Fragment AccountFragment
+                    fragmentManager.beginTransaction()
+                            .replace(R.id.container, accountFragment)
+                            .commit();
+
                 }
                 else {
                     Toast.makeText(activity, "Update profile failed!", Toast.LENGTH_SHORT).show();
