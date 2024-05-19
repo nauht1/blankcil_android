@@ -22,18 +22,21 @@ Blankcil Project is a social media project, it is developed by the student team 
       <th>21110314</th>
       <th>Ngô</th>
       <th>Minh Thuận</th>
+      <th>Developer</th>
       <th>21110314@student.hcmute.edu.vn</th>
     </tr>
     <tr>
       <th>21110254</th>
       <th>Nguyễn Hoàng</th>
       <th>Phương Ngân</th>
+      <th>Developer</th>
       <th>21110254@student.hcmute.edu.vn</th>
     </tr>
     <tr>
       <th>21110300</th>
       <th>Nguyễn</th>
       <th>Thế Thành</th>
+      <th>Developer</th>
       <th>21110300@student.hcmute.edu.vn</th>
     </tr>
   </tbody>
