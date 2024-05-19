@@ -24,7 +24,13 @@ public class PodcastMiniAdapter extends RecyclerView.Adapter<PodcastMiniAdapter.
         this.podcasts = podcasts;
         notifyDataSetChanged();
     }
-
+    public interface OnItemClickListener {
+        void onItemClick(PodcastModel podcast);
+    }
+    private OnItemClickListener onItemClickListener;
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.onItemClickListener = listener;
+    }
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -38,6 +44,13 @@ public class PodcastMiniAdapter extends RecyclerView.Adapter<PodcastMiniAdapter.
         Glide.with(holder.thumbnail.getContext()).load(podcast.getThumbnail_url()).into(holder.thumbnail);
         holder.title.setText(String.valueOf(podcast.getTitle()));
         holder.content.setText(String.valueOf(podcast.getContent()));
+//        Glide.with(holder.userAvatar.getContext()).load(podcast.getUser_podcast().getAvatar_url()).into(holder.userAvatar);
+//        holder.userFullname.setText(String.valueOf(podcast.getUser_podcast().getFullname()));
+        holder.itemView.setOnClickListener(v -> {
+            if (onItemClickListener != null) {
+                onItemClickListener.onItemClick(podcast);
+            }
+        });
     }
 
     @Override
@@ -50,13 +63,15 @@ public class PodcastMiniAdapter extends RecyclerView.Adapter<PodcastMiniAdapter.
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView thumbnail;
-        TextView title, content;
-
+        TextView title, content, userFullname;
+        ImageView userAvatar;
         ViewHolder(View itemView) {
             super(itemView);
             thumbnail = itemView.findViewById(R.id.thumbnail);
             title = itemView.findViewById(R.id.podcast_search_title);
             content = itemView.findViewById(R.id.podcast_search_content);
+            userAvatar = itemView.findViewById(R.id.user_avatar);
+            userFullname =itemView.findViewById(R.id.user_fullname);
         }
     }
 }

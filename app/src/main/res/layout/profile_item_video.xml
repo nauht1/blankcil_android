@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="1dp">
+
+    <VideoView
+        android:id="@+id/videoView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true" />
+
+    <!-- Title and content layout at the bottom -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_alignParentBottom="true"
+        android:background="@color/black80"
+        android:padding="16dp">
+
+
+        <!-- Title of the video -->
+        <TextView
+            android:id="@+id/videoTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Video Title"
+            android:textColor="@color/red_pink"
+            android:textSize="14dp"
+            android:textStyle="bold"
+            android:paddingBottom="4dp" />
+
+        <!-- Content/description of the video -->
+        <TextView
+            android:id="@+id/videoContent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Video content or description goes here."
+            android:textColor="#FFFFFF"
+            android:textSize="14dp" />
+    </LinearLayout>
+
+    <!-- Like, Comment, ShareLink layout on the right -->
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardElevation="4dp"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        app:cardBackgroundColor="@android:color/white"
+        app:cardCornerRadius="20dp"
+        android:id="@+id/pauseToggle"
+        android:visibility="gone">
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:background="?attr/selectableItemBackground"
+            android:src="@drawable/ic_pause" />
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>

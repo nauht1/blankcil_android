@@ -39,7 +39,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class AccountFragment extends Fragment implements View.OnClickListener {
+public class AccountFragment extends Fragment implements PodcastMiniAdapter.OnItemClickListener {
     ImageView imgBanner, imgAvatar;
     TextView txtNumberOfPodcast, txtUsername, txtEmail;
     Button btnEdit, btnLogout;
@@ -62,6 +62,8 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         podcastMiniAdapter = new PodcastMiniAdapter();
         recyclerView.setAdapter(podcastMiniAdapter);
+        podcastMiniAdapter.setOnItemClickListener(this::onItemClick);
+
         btnLogout = view.findViewById(R.id.btnLogout);
         btnLogout.setVisibility(View.VISIBLE);
         btnLogout.setOnClickListener(new View.OnClickListener() {
@@ -126,11 +128,6 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
         btnLogout.setVisibility(View.GONE);
     }
 
-    @Override
-    public void onClick(View v) {
-
-    }
-
     private void logoutUser() {
         String token = SharedPrefManager.getInstance(getContext()).getAccessToken();
         RetrofitClient retrofitClient = RetrofitClient.getInstance();
@@ -155,5 +152,16 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
                 Log.d("AccountFragment", "MSG" + t.getMessage());
             }
         });
+    }
+
+    @Override
+    public void onItemClick(PodcastModel podcast) {
+        btnEdit.setVisibility(View.GONE);
+        btnLogout.setVisibility(View.GONE);
+        FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+        VideoFragment videoFragment = VideoFragment.newInstance(podcast);
+        transaction.replace(R.id.container, videoFragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 }
